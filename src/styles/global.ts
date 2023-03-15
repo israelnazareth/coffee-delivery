@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -9,11 +9,11 @@ export const GlobalStyle = createGlobalStyle`
 
   :focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${({ theme }) => theme["yellow-dark"]};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme['yellow-dark']};
   }
 
   body {
-    background-color: ${({ theme }) => theme['background']};
+    background-color: ${({ theme }) => theme.background};
     -webkit-font-smoothing: antialiased;
   }
 
@@ -22,4 +22,4 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-size: 1rem;
   }
-`;
+`
