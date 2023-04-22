@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Modal } from '../Modal'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
@@ -7,17 +9,13 @@ import {
   LocationButton,
   ShoppingCartContainer,
 } from './styles'
-import { useRef, useState } from 'react'
 
 export function Header() {
-  const countRef = useRef<HTMLSpanElement>(null)
-  const [count, setCount] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
 
-  if (count > 0) {
-    countRef.current!.style.display = 'flex'
+  function handleOpenCloseModal() {
+    setIsOpen(!isOpen)
   }
-
-  const handleAddProduct = () => setCount((prevState) => prevState + 1)
 
   return (
     <HeaderContainer>
@@ -25,17 +23,17 @@ export function Header() {
         <img src={logo} alt="coffe delivery logo" />
       </Link>
       <ButtonsContainer>
-        <LocationButton>
+        <LocationButton onClick={handleOpenCloseModal}>
           <MapPin size={22} weight="fill" />
-          Localização
+          Rio de Janeiro, RJ
+          <Modal isOpen={isOpen} />
         </LocationButton>
         <ShoppingCartContainer>
           <Link to="/checkout">
             <ShoppingCart size={22} weight="fill" />
           </Link>
-          <span ref={countRef}>{count}</span>
+          <span>1</span>
         </ShoppingCartContainer>
-        <button onClick={handleAddProduct}>+</button>
       </ButtonsContainer>
     </HeaderContainer>
   )
