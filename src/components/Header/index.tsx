@@ -12,8 +12,10 @@ import {
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [opacity, setOpacity] = useState(0)
 
-  function handleOpenCloseModal() {
+  function toggleModal() {
+    setOpacity(0)
     setIsOpen(!isOpen)
   }
 
@@ -23,10 +25,9 @@ export function Header() {
         <img src={logo} alt="coffe delivery logo" />
       </Link>
       <ButtonsContainer>
-        <LocationButton onClick={handleOpenCloseModal}>
+        <LocationButton onClick={toggleModal}>
           <MapPin size={22} weight="fill" />
           Rio de Janeiro, RJ
-          <Modal isOpen={isOpen} />
         </LocationButton>
         <ShoppingCartContainer>
           <Link to="/checkout">
@@ -35,6 +36,13 @@ export function Header() {
           <span>1</span>
         </ShoppingCartContainer>
       </ButtonsContainer>
+      <Modal
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        opacity={opacity}
+        setOpacity={setOpacity}
+        backgroundProps={{ opacity }}
+      />
     </HeaderContainer>
   )
 }
