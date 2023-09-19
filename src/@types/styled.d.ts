@@ -6,3 +6,13 @@ type ThemeType = typeof defaultTheme
 declare module 'styled-components' {
   export interface DefaultTheme extends ThemeType {}
 }
+
+export interface ModalProps {
+  isOpen: boolean
+  toggleModal: () => void
+  opacity: number
+  setOpacity: (value: number) => void
+  backgroundProps?: {
+    opacity: number
+  }
+}

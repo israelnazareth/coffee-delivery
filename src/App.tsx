@@ -1,15 +1,24 @@
 import { BrowserRouter } from 'react-router-dom'
 import { Router } from './Router'
 
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
-import { ModalProvider } from 'styled-react-modal'
+import { ModalProvider, BaseModalBackground } from 'styled-react-modal'
+
+interface FadingBackgroundProps {
+  opacity: number
+}
+
+const FadingBackground = styled(BaseModalBackground)<FadingBackgroundProps>`
+  opacity: ${(props) => props.opacity};
+  transition: 0.2s ease-in-out;
+`
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <ModalProvider>
+      <ModalProvider backgroundComponent={FadingBackground}>
         <BrowserRouter>
           <Router />
         </BrowserRouter>
