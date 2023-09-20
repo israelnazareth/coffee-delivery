@@ -6,7 +6,11 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { fetchCities, fetchLocation } from '../services/locationAPI'
+import {
+  fetchCities,
+  fetchLocation,
+  fetchStates,
+} from '../services/locationAPI'
 import { City, State } from '../@types/styled'
 
 type ContextType = {
@@ -46,22 +50,49 @@ function ContextProvider({ children }: ContextProviderProps) {
     setIsOpen(!isOpen)
   }
 
-  const handleUF = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedUF(event.target.value)
+  const handleUF = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCity('')
+    const location = JSON.parse(localStorage.getItem('location') || '{}')
+    const newLocation = JSON.stringify({ ...location, uf: target.value })
+
+    localStorage.setItem('location', newLocation)
+
+    setSelectedUF(target.value)
   }
 
-  const handleCity = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value)
+  const handleCity = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+    const location = JSON.parse(localStorage.getItem('location') || '{}')
+    const newLocation = JSON.stringify({ ...location, city: target.value })
+
+    localStorage.setItem('location', newLocation)
+
+    setSelectedCity(target.value)
   }
 
   useEffect(() => {
-    if (isOpen && !selectedUF) {
-      fetchLocation().then((states) => setStates(states))
-    }
+    fetchStates().then((states) => setStates(states))
     if (isOpen && selectedUF) {
       fetchCities(selectedUF).then((cities) => setCities(cities))
     }
   }, [isOpen, selectedUF])
+
+  useEffect(() => {
+    const location = JSON.parse(localStorage.getItem('location') || '{}')
+    if (!Object.keys(location).length) {
+      localStorage.setItem('location', JSON.stringify({}))
+    }
+    setSelectedCity(location?.city)
+    setSelectedUF(location?.uf)
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const response = await fetchLocation(position)
+
+      localStorage.setItem('location', JSON.stringify(response))
+
+      setSelectedCity(response?.city)
+      setSelectedUF(response?.uf)
+    })
+  }, [])
 
   const contextValue: ContextType = useMemo(
     () => ({
