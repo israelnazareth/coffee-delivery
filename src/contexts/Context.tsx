@@ -67,6 +67,7 @@ function ContextProvider({ children }: ContextProviderProps) {
     localStorage.setItem('location', newLocation)
 
     setSelectedCity(target.value)
+    toggleModal()
   }
 
   useEffect(() => {
