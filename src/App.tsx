@@ -5,6 +5,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { ModalProvider, BaseModalBackground } from 'styled-react-modal'
+import { ContextProvider } from './contexts/Context'
 
 interface FadingBackgroundProps {
   opacity: number
@@ -17,13 +18,15 @@ const FadingBackground = styled(BaseModalBackground)<FadingBackgroundProps>`
 
 export function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <ModalProvider backgroundComponent={FadingBackground}>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-        <GlobalStyle />
-      </ModalProvider>
-    </ThemeProvider>
+    <ContextProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <ModalProvider backgroundComponent={FadingBackground}>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+          <GlobalStyle />
+        </ModalProvider>
+      </ThemeProvider>
+    </ContextProvider>
   )
 }

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Modal } from '../Modal'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
@@ -9,15 +8,10 @@ import {
   LocationButton,
   ShoppingCartContainer,
 } from './styles'
+import { useMyContext } from '../../contexts/Context'
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [opacity, setOpacity] = useState(0)
-
-  function toggleModal() {
-    setOpacity(0)
-    setIsOpen(!isOpen)
-  }
+  const { toggleModal, selectedCity, selectedUF } = useMyContext()
 
   return (
     <HeaderContainer>
@@ -27,7 +21,9 @@ export function Header() {
       <ButtonsContainer>
         <LocationButton onClick={toggleModal}>
           <MapPin size={22} weight="fill" />
-          Rio de Janeiro, RJ
+          {selectedUF && selectedCity
+            ? `${selectedCity}, ${selectedUF}`
+            : 'Localização'}
         </LocationButton>
         <ShoppingCartContainer>
           <Link to="/checkout">
@@ -36,13 +32,7 @@ export function Header() {
           <span>1</span>
         </ShoppingCartContainer>
       </ButtonsContainer>
-      <Modal
-        isOpen={isOpen}
-        toggleModal={toggleModal}
-        opacity={opacity}
-        setOpacity={setOpacity}
-        backgroundProps={{ opacity }}
-      />
+      <Modal />
     </HeaderContainer>
   )
 }

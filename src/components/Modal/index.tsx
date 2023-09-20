@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react'
-import { ModalProps } from '../../@types/styled'
 import { StyledModal } from './styles'
-import { fetchCities, fetchLocation } from '../../services/locationAPI'
+import { useMyContext } from '../../contexts/Context'
 
-export function Modal(props: ModalProps) {
-  const { isOpen, toggleModal, opacity, setOpacity } = props
-
-  const [states, setStates] = useState([])
-  const [selectedUF, setSelectedUF] = useState('')
-  const [cities, setCities] = useState([])
+export function Modal() {
+  const {
+    isOpen,
+    opacity,
+    setOpacity,
+    states,
+    cities,
+    toggleModal,
+    handleUF,
+    selectedUF,
+    handleCity,
+    selectedCity,
+  } = useMyContext()
 
   const afterOpen = () => {
     setTimeout(() => {
@@ -23,19 +28,6 @@ export function Modal(props: ModalProps) {
     })
   }
 
-  const handleUF = (event: any) => {
-    setSelectedUF(event.target.value)
-  }
-
-  useEffect(() => {
-    if (isOpen && !selectedUF) {
-      fetchLocation().then((states) => setStates(states))
-    }
-    if (isOpen && selectedUF) {
-      fetchCities(selectedUF).then((cities) => setCities(cities))
-    }
-  }, [isOpen, selectedUF])
-
   return (
     <StyledModal
       isOpen={isOpen}
@@ -47,19 +39,19 @@ export function Modal(props: ModalProps) {
     >
       <h2>Selecione a sua localização</h2>
       <div>
-        <select name="" id="" onChange={handleUF}>
+        <select name="" id="" onChange={handleUF} value={selectedUF}>
           <option value="" disabled selected>
             UF
           </option>
-          {states.map((state: any) => (
+          {states?.map((state) => (
             <option key={state.id}>{state.sigla}</option>
           ))}
         </select>
-        <select name="" id="">
+        <select name="" id="" onChange={handleCity} value={selectedCity}>
           <option value="" disabled selected>
             Cidade
           </option>
-          {cities.map((city: any) => (
+          {cities?.map((city) => (
             <option key={city.id} value={city.nome}>
               {city.nome}
             </option>
