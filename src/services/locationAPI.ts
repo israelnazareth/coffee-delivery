@@ -1,10 +1,10 @@
-import { City, State } from '../@types/styled'
+import Swal from 'sweetalert2'
+import { API } from '../apis'
+import { City, ResultsProps, State } from '../@types/styled'
 
 export async function fetchStates() {
   try {
-    const url = await fetch(
-      'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
-    )
+    const url = await fetch(API.getStates())
     const data: State[] = await url.json()
     const sortedUFs = data.sort((a, b) => (a.sigla > b.sigla ? 1 : -1))
     return sortedUFs
@@ -15,9 +15,7 @@ export async function fetchStates() {
 
 export async function fetchCities(selectedUF: string) {
   try {
-    const url = await fetch(
-      `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUF}/distritos`,
-    )
+    const url = await fetch(API.getCities(selectedUF))
     const data: City[] = await url.json()
     const sortedCities = data.sort((a, b) => (a.nome > b.nome ? 1 : -1))
     return sortedCities
@@ -30,18 +28,25 @@ export async function fetchLocation(position: GeolocationPosition) {
   try {
     const { coords } = position
     const { latitude, longitude } = coords
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=
-      ${latitude},${longitude}&key=${import.meta.env.VITE_API_KEY}`,
-    )
+    const response = await fetch(API.getLocation(latitude, longitude))
     const data = await response.json()
     if (data.error_message) throw new Error(data.error_message)
 
-    const { results } = data
-    const { address_components } = results[0]
-    const { short_name, long_name } = address_components[3]
-    return { uf: short_name, city: long_name }
+    const results: ResultsProps[] = data.results[0].address_components
+    const address = results.find((result) =>
+      result.types.includes('administrative_area_level_1'),
+    )
+
+    return { uf: address?.short_name, city: address?.long_name }
   } catch (error) {
-    console.error(error)
+    Swal.fire({
+      icon: 'error',
+      title: 'Ops...',
+      text: String(error),
+    })
   }
+}
+
+export const teste = () => {
+  return 'teste'
 }

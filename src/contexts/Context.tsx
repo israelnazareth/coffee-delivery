@@ -22,10 +22,10 @@ type ContextType = {
   setStates: React.Dispatch<React.SetStateAction<State[] | undefined>>
   cities: City[] | undefined
   setCities: React.Dispatch<React.SetStateAction<City[] | undefined>>
-  selectedUF: string
-  setSelectedUF: React.Dispatch<React.SetStateAction<string>>
-  selectedCity: string
-  setSelectedCity: React.Dispatch<React.SetStateAction<string>>
+  selectedUF: string | undefined
+  setSelectedUF: React.Dispatch<React.SetStateAction<string | undefined>>
+  selectedCity: string | undefined
+  setSelectedCity: React.Dispatch<React.SetStateAction<string | undefined>>
   toggleModal: () => void
   handleUF: (event: React.ChangeEvent<HTMLSelectElement>) => void
   handleCity: (event: React.ChangeEvent<HTMLSelectElement>) => void
@@ -42,8 +42,10 @@ function ContextProvider({ children }: ContextProviderProps) {
   const [opacity, setOpacity] = useState(0)
   const [states, setStates] = useState<State[] | undefined>(undefined)
   const [cities, setCities] = useState<City[] | undefined>(undefined)
-  const [selectedUF, setSelectedUF] = useState('')
-  const [selectedCity, setSelectedCity] = useState('')
+  const [selectedUF, setSelectedUF] = useState<string | undefined>(undefined)
+  const [selectedCity, setSelectedCity] = useState<string | undefined>(
+    undefined,
+  )
 
   const toggleModal = () => {
     setOpacity(0)
@@ -88,10 +90,11 @@ function ContextProvider({ children }: ContextProviderProps) {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const response = await fetchLocation(position)
 
-      localStorage.setItem('location', JSON.stringify(response))
-
-      setSelectedCity(response?.city)
-      setSelectedUF(response?.uf)
+      if (response) {
+        localStorage.setItem('location', JSON.stringify(response))
+        setSelectedCity(response?.city)
+        setSelectedUF(response?.uf)
+      }
     })
   }, [])
 
