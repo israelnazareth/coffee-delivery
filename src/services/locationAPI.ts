@@ -46,7 +46,3 @@ export async function fetchLocation(position: GeolocationPosition) {
     })
   }
 }
-
-export const teste = () => {
-  return 'teste'
-}
