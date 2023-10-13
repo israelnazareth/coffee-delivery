@@ -16,6 +16,8 @@ import { City, State } from '../@types/styled'
 type ContextType = {
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  loading: boolean
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
   opacity: number
   setOpacity: React.Dispatch<React.SetStateAction<number>>
   states: State[] | undefined
@@ -39,6 +41,7 @@ interface ContextProviderProps {
 
 function ContextProvider({ children }: ContextProviderProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [opacity, setOpacity] = useState(0)
   const [states, setStates] = useState<State[] | undefined>(undefined)
   const [cities, setCities] = useState<City[] | undefined>(undefined)
@@ -81,13 +84,14 @@ function ContextProvider({ children }: ContextProviderProps) {
 
   useEffect(() => {
     const location = JSON.parse(localStorage.getItem('location') || '{}')
-    if (!Object.keys(location).length) {
+    if (!location) {
       localStorage.setItem('location', JSON.stringify({}))
     }
     setSelectedCity(location?.city)
     setSelectedUF(location?.uf)
 
     navigator.geolocation.getCurrentPosition(async (position) => {
+      setLoading(true)
       const response = await fetchLocation(position)
 
       if (response) {
@@ -95,6 +99,7 @@ function ContextProvider({ children }: ContextProviderProps) {
         setSelectedCity(response?.city)
         setSelectedUF(response?.uf)
       }
+      setLoading(false)
     })
   }, [])
 
@@ -102,6 +107,8 @@ function ContextProvider({ children }: ContextProviderProps) {
     () => ({
       isOpen,
       setIsOpen,
+      loading,
+      setLoading,
       opacity,
       setOpacity,
       states,
@@ -116,7 +123,7 @@ function ContextProvider({ children }: ContextProviderProps) {
       handleUF,
       handleCity,
     }),
-    [isOpen, opacity, states, cities, selectedUF, selectedCity],
+    [isOpen, loading, opacity, states, cities, selectedUF, selectedCity],
   )
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>

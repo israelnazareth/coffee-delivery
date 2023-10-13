@@ -11,7 +11,13 @@ import {
 import { useMyContext } from '../../contexts/Context'
 
 export function Header() {
-  const { toggleModal, selectedCity, selectedUF } = useMyContext()
+  const { toggleModal, selectedCity, selectedUF, loading } = useMyContext()
+
+  const renderLocation = () => {
+    return selectedUF && selectedCity
+      ? `${selectedCity}, ${selectedUF}`
+      : 'Localização'
+  }
 
   return (
     <HeaderContainer>
@@ -21,9 +27,7 @@ export function Header() {
       <ButtonsContainer>
         <LocationButton onClick={toggleModal}>
           <MapPin size={22} weight="fill" />
-          {selectedUF && selectedCity
-            ? `${selectedCity}, ${selectedUF}`
-            : 'Localização'}
+          {loading ? 'Carregando...' : renderLocation()}
         </LocationButton>
         <ShoppingCartContainer>
           <Link to="/checkout">
