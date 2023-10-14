@@ -4,8 +4,11 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4rem;
-  margin-bottom: 3rem;
+  padding: 1rem 0;
+
+  @media screen and (min-width: 1024px) {
+    padding: 2rem 0;
+  }
 `
 
 export const ButtonsContainer = styled.div`

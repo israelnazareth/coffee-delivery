@@ -14,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }: any) => theme['background-100']};
     -webkit-font-smoothing: antialiased;
-    margin: 0 1rem;
   }
 
   body, input, textarea, button {
@@ -23,9 +22,15 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
   }
 
+  h1, h2, h3 {
+    font-family: 'Baloo 2', sans-serif;
+  }
+
   h1 {
     color: ${({ theme }: any) => theme['brown-900']};
-    font-family: 'Baloo 2', sans-serif;
-    line-height: 110%;
+  }
+
+  h2, h3 {
+    color: ${({ theme }: any) => theme['brown-800']};
   }
 `
