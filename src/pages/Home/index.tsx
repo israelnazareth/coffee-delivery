@@ -1,5 +1,5 @@
 import React from 'react'
-import image from 'pbl/hero-image.png'
+import image from '@/assets/hero-image.png'
 import { HeroTexts } from './HeroTexts'
 import {
   CoffeesContainer,

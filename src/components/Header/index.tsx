@@ -1,5 +1,5 @@
 import { Modal } from '../Modal'
-import logo from 'pbl/logo.svg'
+import logo from '@/assets/logo.svg'
 import { Link } from 'react-router-dom'
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
 import {
