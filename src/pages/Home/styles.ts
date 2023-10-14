@@ -93,3 +93,16 @@ export const BenefitsContainer = styled.div`
     }
   }
 `
+
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+`
+
+export const CoffeesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  justify-items: center;
+  gap: 4rem;
+`
