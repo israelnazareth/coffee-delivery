@@ -1,5 +1,5 @@
 import { Modal } from '../Modal'
-import logo from '../../assets/logo.svg'
+import logo from 'pbl/logo.svg'
 import { Link } from 'react-router-dom'
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
 import {
@@ -8,7 +8,7 @@ import {
   LocationButton,
   ShoppingCartContainer,
 } from './styles'
-import { useMyContext } from '../../contexts/Context'
+import { useMyContext } from '@/contexts/Context'
 
 export function Header() {
   const { toggleModal, selectedCity, selectedUF, loading } = useMyContext()
