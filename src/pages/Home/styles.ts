@@ -12,7 +12,7 @@ export const HeroContainer = styled.div`
   @media screen and (min-width: 1024px) {
     flex-direction: row-reverse;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1rem;
   }
 `
 
