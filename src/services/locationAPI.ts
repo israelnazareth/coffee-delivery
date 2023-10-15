@@ -32,12 +32,15 @@ export async function fetchLocation(position: GeolocationPosition) {
     const data = await response.json()
     if (data.error_message) throw new Error(data.error_message)
 
-    const results: ResultsProps[] = data.results[0].address_components
-    const address = results.find((result) =>
-      result.types.includes('administrative_area_level_1'),
+    const addressData = data.results.find((result: ResultsProps) =>
+      result.types.includes('administrative_area_level_2'),
     )
 
-    return { uf: address?.short_name, city: address?.long_name }
+    const formattedAddress = addressData?.formatted_address.split(' - ')
+    const city = formattedAddress?.[0]
+    const uf = formattedAddress?.[1].split(',')[0]
+
+    return { uf, city }
   } catch (error) {
     Swal.fire({
       icon: 'error',

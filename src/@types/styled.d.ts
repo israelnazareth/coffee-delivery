@@ -60,4 +60,5 @@ export interface ResultsProps {
   long_name: string | undefined
   short_name: string | undefined
   types: string[]
+  formatted_address: string
 }
