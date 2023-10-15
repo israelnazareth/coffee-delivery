@@ -1,16 +1,16 @@
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
-import { BenefitsContainer, TextsContainer } from './styles'
+import { BenefitsContainer, HeadingTexts, TextsContainer } from './styles'
 
 export function HeroTexts() {
   return (
-    <div>
-      <TextsContainer>
+    <TextsContainer>
+      <HeadingTexts>
         <h1>Encontre o café perfeito para qualquer hora do dia</h1>
         <p>
           Com o Coffee Delivery você recebe seu café onde estiver, a qualquer
           hora
         </p>
-      </TextsContainer>
+      </HeadingTexts>
       <BenefitsContainer>
         <div>
           <span>
@@ -37,6 +37,6 @@ export function HeroTexts() {
           <p>O café chega fresquinho até você</p>
         </div>
       </BenefitsContainer>
-    </div>
+    </TextsContainer>
   )
 }
