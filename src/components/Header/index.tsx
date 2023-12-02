@@ -29,12 +29,11 @@ export function Header() {
           <MapPin size={22} weight="fill" />
           {loading ? 'Carregando...' : renderLocation()}
         </LocationButton>
-        <ShoppingCartContainer>
-          <Link to="/checkout">
-            <ShoppingCart size={22} weight="fill" />
-          </Link>
-          <span>1</span>
-        </ShoppingCartContainer>
+        <Link to="/checkout">
+          <ShoppingCartContainer>
+            <ShoppingCart size={22} weight="fill" color="#C47F17" />
+          </ShoppingCartContainer>
+        </Link>
       </ButtonsContainer>
       <Modal />
     </HeaderContainer>

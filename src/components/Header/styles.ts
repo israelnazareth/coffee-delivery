@@ -37,11 +37,6 @@ export const LocationButton = styled(GeneralButton)`
 export const ShoppingCartContainer = styled(GeneralButton)`
   background: ${({ theme }) => theme['yellow-100']};
 
-  a {
-    color: ${({ theme }) => theme['yellow-500']};
-    height: 22px;
-  }
-
   span {
     display: none;
     justify-content: center;
