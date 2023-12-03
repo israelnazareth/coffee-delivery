@@ -20,6 +20,23 @@ export const Container = styled.div`
   background: ${({ theme }) => theme['brown-200']};
 `
 
+export const InputsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+`
+
+export const InputsWrapper = styled(InputsContainer)`
+  label {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    flex-direction: row;
+  }
+`
+
 export const ContainerLeft = styled.div`
   display: flex;
   flex-direction: column;

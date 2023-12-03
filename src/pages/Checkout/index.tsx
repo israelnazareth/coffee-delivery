@@ -8,7 +8,10 @@ import {
   MainContainer,
   DiffContainer,
   HeaderContainer,
+  InputsContainer,
+  InputsWrapper,
 } from './styles'
+import { InputField } from '@/components/InputField'
 
 export function Checkout() {
   return (
@@ -25,6 +28,27 @@ export function Checkout() {
                 <span>Informe o endereço onde deseja receber seu pedido</span>
               </div>
             </HeaderContainer>
+            <InputsContainer>
+              <InputField type="text" placeholder="CEP" maxWidth="12.5rem" />
+              <InputField type="text" placeholder="Rua" />
+              <InputsWrapper>
+                <InputField
+                  type="text"
+                  placeholder="Número"
+                  maxWidth="12.5rem"
+                />
+                <InputField type="text" placeholder="Complemento" isOptional />
+              </InputsWrapper>
+              <InputsWrapper>
+                <InputField
+                  type="text"
+                  placeholder="Bairro"
+                  maxWidth="12.5rem"
+                />
+                <InputField type="text" placeholder="Cidade" />
+                <InputField type="text" placeholder="UF" maxWidth="3.75rem" />
+              </InputsWrapper>
+            </InputsContainer>
           </Container>
           <Container>
             <HeaderContainer>
