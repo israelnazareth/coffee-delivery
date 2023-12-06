@@ -1,6 +1,11 @@
 // import { Link } from 'react-router-dom'
 
-import { CurrencyDollar, MapPinLine } from '@phosphor-icons/react'
+import {
+  CreditCard,
+  CurrencyDollar,
+  MapPinLine,
+  Money,
+} from '@phosphor-icons/react'
 import {
   Container,
   ContainerLeft,
@@ -10,8 +15,10 @@ import {
   HeaderContainer,
   InputsContainer,
   InputsWrapper,
+  PaymentContainer,
 } from './styles'
 import { InputField } from '@/components/InputField'
+import { PaymentItem } from '@/components/Select'
 
 export function Checkout() {
   return (
@@ -61,6 +68,19 @@ export function Checkout() {
                 </span>
               </div>
             </HeaderContainer>
+            <PaymentContainer>
+              <PaymentItem
+                id="credit-card"
+                title="CARTÃO DE CRÉDITO"
+                icon={CreditCard}
+              />
+              <PaymentItem
+                id="debit-card"
+                title="CARTÃO DE DÉBITO"
+                icon={CreditCard}
+              />
+              <PaymentItem id="money" title="DINHEIRO" icon={Money} />
+            </PaymentContainer>
           </Container>
         </ContainerLeft>
         <ContainerRight>

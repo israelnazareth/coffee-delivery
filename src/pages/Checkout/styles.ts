@@ -72,3 +72,26 @@ export const HeaderContainer = styled.div`
 export const DiffContainer = styled(Container)`
   border-radius: 0.375rem 2.75rem;
 `
+
+export const PaymentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.75rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    background: ${({ theme }) => theme['brown-400']};
+    padding: 1rem;
+    color: black;
+  }
+
+  .checked {
+    outline: 1px solid ${({ theme }) => theme['purple-300']};
+    background: ${({ theme }) => theme['purple-100']};
+  }
+`
