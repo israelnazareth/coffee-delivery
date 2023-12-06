@@ -4,8 +4,6 @@ interface PaymentItemProps {
   id: string
   title: string
   icon: Icon
-  isChecked?: boolean
-  setIsChecked?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export function PaymentItem({ id, title, icon }: PaymentItemProps) {
