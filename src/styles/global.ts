@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${({ theme }: any) => theme['background-100']};
+    background-color: ${({ theme }) => theme['background-100']};
     -webkit-font-smoothing: antialiased;
   }
 
@@ -27,10 +27,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    color: ${({ theme }: any) => theme['brown-900']};
+    color: ${({ theme }) => theme['brown-900']};
   }
 
   h2, h3 {
-    color: ${({ theme }: any) => theme['brown-800']};
+    color: ${({ theme }) => theme['brown-800']};
   }
 `

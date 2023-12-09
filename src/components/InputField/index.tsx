@@ -7,16 +7,23 @@ interface InputFieldProps {
   className?: string
   isOptional?: boolean
   maxWidth?: string
+  maxLength?: number
 }
 
 export function InputField(props: InputFieldProps) {
-  const { placeholder, type, className, isOptional, maxWidth } = props
+  const { placeholder, type, className, isOptional, maxWidth, maxLength } =
+    props
 
   const { width } = useWindowSize()
 
   return (
     <InputContainer style={width >= 1024 ? { maxWidth } : undefined}>
-      <input type={type} placeholder={placeholder} className={className} />
+      <input
+        type={type}
+        placeholder={placeholder}
+        className={className}
+        maxLength={maxLength}
+      />
       {isOptional && <span>Opcional</span>}
     </InputContainer>
   )

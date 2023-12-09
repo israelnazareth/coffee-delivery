@@ -3,10 +3,15 @@ import styled from 'styled-components'
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 
   @media screen and (min-width: 1024px) {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  @media screen and (min-width: 1440px) {
+    margin-top: 3rem;
   }
 `
 
@@ -75,23 +80,45 @@ export const DiffContainer = styled(Container)`
 
 export const PaymentContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   gap: 0.75rem;
 
   label {
     display: flex;
     align-items: center;
+    justify-content: left;
     gap: 0.75rem;
     cursor: pointer;
+    font-size: 0.75rem;
     border-radius: 0.375rem;
     background: ${({ theme }) => theme['brown-400']};
     padding: 1rem;
     color: black;
+    white-space: nowrap;
+    width: 12rem;
+  }
+
+  span {
+    font-family: Roboto;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    color: ${({ theme }) => theme['brown-700']};
+  }
+
+  input {
+    appearance: none;
   }
 
   .checked {
     outline: 1px solid ${({ theme }) => theme['purple-300']};
     background: ${({ theme }) => theme['purple-100']};
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
   }
 `
