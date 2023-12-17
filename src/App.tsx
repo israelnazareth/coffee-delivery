@@ -6,6 +6,8 @@ import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { ModalProvider, BaseModalBackground } from 'styled-react-modal'
 import { ContextProvider } from './contexts/Context'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface FadingBackgroundProps {
   opacity: number
@@ -23,6 +25,7 @@ export function App() {
         <ModalProvider backgroundComponent={FadingBackground}>
           <BrowserRouter>
             <Router />
+            <ToastContainer />
           </BrowserRouter>
           <GlobalStyle />
         </ModalProvider>
