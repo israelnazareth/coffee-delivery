@@ -49,7 +49,11 @@ export const ContainerLeft = styled.div`
   margin-bottom: 2rem;
 `
 
-export const ContainerRight = styled.div``
+export const ContainerRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`
 
 export const HeaderContainer = styled.div`
   display: flex;

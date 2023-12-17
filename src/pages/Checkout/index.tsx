@@ -4,6 +4,8 @@ import * as Icon from '@phosphor-icons/react'
 import * as Styled from './styles'
 import { InputField } from '@/components/InputField'
 import { PaymentItem } from '@/components/Select'
+import SelectedCoffee from '@/components/SelectedCoffeeInCart'
+import { CartCoffee } from '@/components/CoffeeCard'
 
 const paymentMethods = [
   {
@@ -25,6 +27,8 @@ const paymentMethods = [
 
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState({ paymentMethod: '' })
+
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment({ paymentMethod: event.target.value })
@@ -89,7 +93,22 @@ export function Checkout() {
       </Styled.ContainerLeft>
       <Styled.ContainerRight>
         <h2>Cafés selecionados</h2>
-        <Styled.DiffContainer>a</Styled.DiffContainer>
+        <Styled.DiffContainer>
+          {React.Children.toArray(
+            cart.map((coffee: CartCoffee) => {
+              return (
+                <SelectedCoffee
+                  image={coffee.image}
+                  title={coffee.title}
+                  description={coffee.description}
+                  price={coffee.price}
+                  quantity={coffee.quantity}
+                  subTotal={coffee.subTotal}
+                />
+              )
+            }),
+          )}
+        </Styled.DiffContainer>
       </Styled.ContainerRight>
     </Styled.MainContainer>
   )

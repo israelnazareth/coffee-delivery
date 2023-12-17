@@ -11,7 +11,7 @@ import {
   fetchLocation,
   fetchStates,
 } from '../services/locationAPI'
-import { City, State } from '../@types/styled'
+import { City, State } from '../@types/types'
 
 type ContextType = {
   isOpen: boolean
@@ -83,6 +83,11 @@ function ContextProvider({ children }: ContextProviderProps) {
   }, [isOpen, selectedUF])
 
   useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    if (!cart) {
+      localStorage.setItem('cart', JSON.stringify([]))
+    }
+
     const location = JSON.parse(localStorage.getItem('location') || '{}')
     if (!location) {
       localStorage.setItem('location', JSON.stringify({}))
