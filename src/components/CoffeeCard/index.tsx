@@ -2,18 +2,64 @@ import React, { useState } from 'react'
 import { CardContainer, CardContent, CardFooter } from './styles'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 import { Minus, ShoppingCart, Plus } from '@phosphor-icons/react'
+import { toast } from 'react-toastify'
 
 interface CoffeeCardProps {
   image: string
-  tags: string[]
+  tags?: string[]
   title: string
   description: string
   price: number
 }
 
+export interface CartCoffee extends CoffeeCardProps {
+  quantity: number
+  subTotal: number
+}
+
 export function CoffeeCard(props: CoffeeCardProps) {
   const [quantity, setQuantity] = useState(1)
   const { image, tags, title, description, price } = props
+
+  const handleSendToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+
+    const subTotal = price * quantity
+    const newCoffee: CartCoffee = {
+      image,
+      tags,
+      title,
+      description,
+      price,
+      quantity,
+      subTotal,
+    }
+
+    const coffeeIsInTheCart = cart.some(
+      (item: CartCoffee) => item.title === title,
+    )
+
+    if (coffeeIsInTheCart) {
+      const newCart = cart.map((item: CartCoffee) => {
+        if (item.title === title) {
+          return {
+            ...item,
+            quantity: item.quantity + quantity,
+            subTotal: item.subTotal + subTotal,
+          }
+        }
+        return item
+      })
+
+      localStorage.setItem('cart', JSON.stringify(newCart))
+    } else {
+      localStorage.setItem('cart', JSON.stringify([...cart, newCoffee]))
+    }
+
+    const s = quantity > 1 ? 's' : ''
+
+    toast.success(`+ ${quantity} ${title} adicionado${s} ao carrinho!`)
+  }
 
   const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(event.target.value))
@@ -33,7 +79,7 @@ export function CoffeeCard(props: CoffeeCardProps) {
       <img src={image} alt={description} />
       <CardContent>
         <div className="card-tags">
-          {React.Children.toArray(tags.map((tag) => <span>{tag}</span>))}
+          {React.Children.toArray(tags?.map((tag) => <span>{tag}</span>))}
         </div>
         <h3>{title}</h3>
         <p>{description}</p>
@@ -60,7 +106,7 @@ export function CoffeeCard(props: CoffeeCardProps) {
               </button>
             </div>
 
-            <button type="button" className="cart">
+            <button type="button" className="cart" onClick={handleSendToCart}>
               <ShoppingCart size={22} weight="fill" />
             </button>
           </div>
@@ -68,4 +114,8 @@ export function CoffeeCard(props: CoffeeCardProps) {
       </CardContent>
     </CardContainer>
   )
+}
+
+CoffeeCard.defaultProps = {
+  tags: [],
 }

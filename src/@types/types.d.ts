@@ -53,3 +53,12 @@ export interface ResultsProps {
   types: string[]
   formatted_address: string
 }
+
+export interface CoffeeData {
+  id: string
+  name: string
+  description: string
+  price: number
+  image: string
+  category: string
+}
