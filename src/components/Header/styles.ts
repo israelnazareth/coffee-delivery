@@ -38,7 +38,7 @@ export const ShoppingCartContainer = styled(GeneralButton)`
   background: ${({ theme }) => theme['yellow-100']};
 
   span {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme['yellow-500']};

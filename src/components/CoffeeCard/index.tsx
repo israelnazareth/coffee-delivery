@@ -39,6 +39,9 @@ export function CoffeeCard(props: CoffeeCardProps) {
       (item: CartCoffee) => item.title === title,
     )
 
+    const s = quantity > 1 ? 's' : ''
+    const addedCoffee = `${quantity} ${title} adicionado${s} ao carrinho!`
+
     if (coffeeIsInTheCart) {
       const newCart = cart.map((item: CartCoffee) => {
         if (item.title === title) {
@@ -52,13 +55,13 @@ export function CoffeeCard(props: CoffeeCardProps) {
       })
 
       localStorage.setItem('cart', JSON.stringify(newCart))
+      window.dispatchEvent(new Event('storage'))
+      toast(`+${addedCoffee}`)
     } else {
       localStorage.setItem('cart', JSON.stringify([...cart, newCoffee]))
+      window.dispatchEvent(new Event('storage'))
+      toast(addedCoffee)
     }
-
-    const s = quantity > 1 ? 's' : ''
-
-    toast.success(`+ ${quantity} ${title} adicionado${s} ao carrinho!`)
   }
 
   const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
