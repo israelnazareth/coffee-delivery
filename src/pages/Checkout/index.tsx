@@ -6,32 +6,25 @@ import { InputField } from '@/components/InputField'
 import { PaymentItem } from '@/components/Select'
 import SelectedCoffee from '@/components/SelectedCoffeeInCart'
 import { CartCoffee } from '@/components/CoffeeCard'
-
-const paymentMethods = [
-  {
-    id: 'credit-card',
-    title: 'CARTÃO DE CRÉDITO',
-    icon: Icon.CreditCard,
-  },
-  {
-    id: 'debit-card',
-    title: 'CARTÃO DE DÉBITO',
-    icon: Icon.CreditCard,
-  },
-  {
-    id: 'money',
-    title: 'DINHEIRO',
-    icon: Icon.Money,
-  },
-]
+import { paymentMethods } from '@/constants'
+import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState({ paymentMethod: '' })
+  const deliveryFee = 3.5
 
   const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment({ paymentMethod: event.target.value })
+  }
+
+  const calculateTotalAndSubTotal = () => {
+    const subTotal = cart.reduce((acc: number, item: CartCoffee) => {
+      return acc + item.subTotal
+    }, 0)
+    const total = subTotal + deliveryFee
+    return { total, subTotal }
   }
 
   return (
@@ -97,17 +90,56 @@ export function Checkout() {
           {React.Children.toArray(
             cart.map((coffee: CartCoffee) => {
               return (
-                <SelectedCoffee
-                  image={coffee.image}
-                  title={coffee.title}
-                  description={coffee.description}
-                  price={coffee.price}
-                  quantity={coffee.quantity}
-                  subTotal={coffee.subTotal}
-                />
+                <div className="wrapper-container">
+                  <SelectedCoffee
+                    image={coffee.image}
+                    title={coffee.title}
+                    description={coffee.description}
+                    price={coffee.price}
+                    quantity={coffee.quantity}
+                    subTotal={coffee.subTotal}
+                  />
+                  <hr style={{ margin: '1.5rem 0' }} />
+                </div>
               )
             }),
           )}
+          <div
+            style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <span>Subtotal</span>
+              <span>
+                R$ {NumberToBRLCurrency(calculateTotalAndSubTotal().subTotal)}
+              </span>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <span>Taxa de entrega</span>
+              <span>R$ {NumberToBRLCurrency(deliveryFee)}</span>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <span>Total</span>
+              <span>
+                R$ {NumberToBRLCurrency(calculateTotalAndSubTotal().total)}
+              </span>
+            </div>
+            <button type="button">Confirmar Pedido</button>
+          </div>
         </Styled.DiffContainer>
       </Styled.ContainerRight>
     </Styled.MainContainer>
