@@ -1,5 +1,5 @@
 import { Minus, Plus } from '@phosphor-icons/react'
-import { Container } from './styles'
+import { MainContainer, ContainerWrapper, ButtonsContainer } from './styles'
 import { CartCoffee } from '../CoffeeCard'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 
@@ -7,12 +7,18 @@ export default function SelectedCoffee(props: CartCoffee) {
   const { image, title, description, subTotal, quantity } = props
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ display: 'flex' }}>
-        <img src={image} alt={description} />
-        <div>
+    <MainContainer>
+      <ContainerWrapper>
+        <img src={image} alt={description} width="64px" />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
           <span>{title}</span>
-          <Container>
+          <ButtonsContainer>
             <div className="buttons-and-input-container">
               <button type="button">
                 <Minus size={14} weight="bold" />
@@ -29,10 +35,10 @@ export default function SelectedCoffee(props: CartCoffee) {
               </button>
             </div>
             <button>REMOVER</button>
-          </Container>
+          </ButtonsContainer>
         </div>
-      </div>
-      <div>R${NumberToBRLCurrency(subTotal).trim()}</div>
-    </div>
+      </ContainerWrapper>
+      <div>R$ {NumberToBRLCurrency(subTotal)}</div>
+    </MainContainer>
   )
 }

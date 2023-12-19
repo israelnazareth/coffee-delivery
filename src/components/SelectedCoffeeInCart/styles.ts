@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const MainContainer = styled.div`
+  display: flex;
+`
+
+export const ContainerWrapper = styled.div`
+  display: flex;
+`
+
+export const ButtonsContainer = styled.div`
   display: flex;
 
   .buttons-and-input-container {

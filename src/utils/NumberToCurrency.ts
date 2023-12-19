@@ -5,4 +5,5 @@ export function NumberToBRLCurrency(value: number) {
   })
     .format(value)
     .replace('R$', '')
+    .trim()
 }

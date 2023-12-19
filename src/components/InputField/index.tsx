@@ -17,7 +17,7 @@ export function InputField(props: InputFieldProps) {
   const { width } = useWindowSize()
 
   return (
-    <InputContainer style={width >= 1024 ? { maxWidth } : undefined}>
+    <InputContainer style={width >= 1100 ? { maxWidth } : undefined}>
       <input
         type={type}
         placeholder={placeholder}

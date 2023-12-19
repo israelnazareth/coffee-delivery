@@ -5,7 +5,7 @@ export const MainContainer = styled.div`
   flex-direction: column;
   margin-top: 1rem;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1100px) {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -37,7 +37,7 @@ export const InputsWrapper = styled(InputsContainer)`
     width: 100%;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1100px) {
     flex-direction: row;
   }
 `
@@ -80,6 +80,18 @@ export const HeaderContainer = styled.div`
 
 export const DiffContainer = styled(Container)`
   border-radius: 0.375rem 2.75rem;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+
+  .wrapper-container {
+    display: flex;
+    flex-direction: column;
+
+    hr {
+      border: 1px solid ${({ theme }) => theme['brown-400']};
+    }
+  }
 `
 
 export const PaymentContainer = styled.div`
