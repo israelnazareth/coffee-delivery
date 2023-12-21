@@ -6,11 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import {
-  fetchCities,
-  fetchLocation,
-  fetchStates,
-} from '../services/locationAPI'
+import { fetchCities, fetchStates } from '../services/locationAPI'
 import { City, State } from '../@types/styled'
 
 type ContextType = {
@@ -89,18 +85,6 @@ function ContextProvider({ children }: ContextProviderProps) {
     }
     setSelectedCity(location?.city)
     setSelectedUF(location?.uf)
-
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      setLoading(true)
-      const response = await fetchLocation(position)
-
-      if (response) {
-        localStorage.setItem('location', JSON.stringify(response))
-        setSelectedCity(response?.city)
-        setSelectedUF(response?.uf)
-      }
-      setLoading(false)
-    })
   }, [])
 
   const contextValue: ContextType = useMemo(
