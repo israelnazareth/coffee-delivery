@@ -7,24 +7,14 @@ import { PaymentItem } from '@/components/Select'
 import SelectedCoffee from '@/components/SelectedCoffeeInCart'
 import { CartCoffee } from '@/components/CoffeeCard'
 import { paymentMethods } from '@/constants'
-import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
+import CartCalculate from '@/components/CartCalculate'
 
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState({ paymentMethod: '' })
-  const deliveryFee = 3.5
-
   const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment({ paymentMethod: event.target.value })
-  }
-
-  const calculateTotalAndSubTotal = () => {
-    const subTotal = cart.reduce((acc: number, item: CartCoffee) => {
-      return acc + item.subTotal
-    }, 0)
-    const total = subTotal + deliveryFee
-    return { total, subTotal }
   }
 
   return (
@@ -104,42 +94,7 @@ export function Checkout() {
               )
             }),
           )}
-          <div
-            style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <span>Subtotal</span>
-              <span>
-                R$ {NumberToBRLCurrency(calculateTotalAndSubTotal().subTotal)}
-              </span>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <span>Taxa de entrega</span>
-              <span>R$ {NumberToBRLCurrency(deliveryFee)}</span>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <span>Total</span>
-              <span>
-                R$ {NumberToBRLCurrency(calculateTotalAndSubTotal().total)}
-              </span>
-            </div>
-            <button type="button">Confirmar Pedido</button>
-          </div>
+          <CartCalculate />
         </Styled.DiffContainer>
       </Styled.ContainerRight>
     </Styled.MainContainer>

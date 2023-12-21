@@ -4,6 +4,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  gap: 1rem;
 
   @media screen and (min-width: 1100px) {
     flex-direction: row;
@@ -53,6 +54,11 @@ export const ContainerRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  @media (max-width: 1100px) {
+    max-width: 26rem;
+    margin: 0 auto;
+  }
 `
 
 export const HeaderContainer = styled.div`
@@ -91,6 +97,11 @@ export const DiffContainer = styled(Container)`
     hr {
       border: 1px solid ${({ theme }) => theme['brown-400']};
     }
+  }
+
+  @media (max-width: 1024px) {
+    max-width: 26rem;
+    margin: 0 auto;
   }
 `
 
