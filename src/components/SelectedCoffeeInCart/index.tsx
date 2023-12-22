@@ -9,9 +9,26 @@ import {
 import { CartCoffee } from '../CoffeeCard'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 import { Trash } from '@phosphor-icons/react/dist/ssr'
+import { useEffect } from 'react'
 
-export default function SelectedCoffee(props: CartCoffee) {
-  const { image, title, description, subTotal, quantity } = props
+interface SelectedCoffeeProps extends CartCoffee {
+  cart: CartCoffee[]
+  setCart: React.Dispatch<React.SetStateAction<CartCoffee[]>>
+}
+
+export default function SelectedCoffee(props: SelectedCoffeeProps) {
+  const { image, title, description, subTotal, quantity, cart, setCart } = props
+
+  const removeCoffeeFromCart = (title: string) => {
+    const newCart = cart.filter((item: CartCoffee) => item.title !== title)
+    localStorage.setItem('cart', JSON.stringify(newCart))
+    window.dispatchEvent(new Event('storage'))
+    setCart(newCart)
+  }
+
+  useEffect(() => {
+    setCart(cart)
+  }, [cart, setCart])
 
   return (
     <MainContainer>
@@ -35,7 +52,10 @@ export default function SelectedCoffee(props: CartCoffee) {
                 <Plus size={14} weight="bold" />
               </button>
             </div>
-            <RemoveButton type="button">
+            <RemoveButton
+              type="button"
+              onClick={() => removeCoffeeFromCart(title)}
+            >
               <Trash size={16} />
               <span>REMOVER</span>
             </RemoveButton>
