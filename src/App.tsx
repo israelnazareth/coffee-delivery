@@ -16,6 +16,8 @@ interface FadingBackgroundProps {
 const FadingBackground = styled(BaseModalBackground)<FadingBackgroundProps>`
   opacity: ${(props) => props.opacity};
   transition: 0.2s ease-in-out;
+  width: 100%;
+  height: 100%;
 `
 
 export function App() {

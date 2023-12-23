@@ -33,4 +33,34 @@ export const GlobalStyle = createGlobalStyle`
   h2, h3 {
     color: ${({ theme }) => theme['brown-800']};
   }
+
+
+  .ikkaVS {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+// Animations
+@keyframes fadeIn {
+    from {
+    opacity: 0;
+  }
+    to {
+    opacity: 1;
+  }
+}
+
+@keyframes upToDown {
+    from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+    to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 `

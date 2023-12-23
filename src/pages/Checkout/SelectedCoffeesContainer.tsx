@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as Styled from './styles'
-import SelectedCoffee from '@/components/SelectedCoffeeInCart'
+import SelectedCoffee from '@/components/SelectedCoffee'
 import { CartCoffee } from '@/components/CoffeeCard'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 import EmptyCart from './EmptyCart'

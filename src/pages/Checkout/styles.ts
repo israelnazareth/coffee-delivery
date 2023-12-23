@@ -5,14 +5,11 @@ export const MainContainer = styled.div`
   flex-direction: column;
   margin-top: 1rem;
   gap: 1rem;
+  animation: upToDown 0.5s ease-in-out;
 
   @media screen and (min-width: 1100px) {
     flex-direction: row;
     justify-content: space-between;
-  }
-
-  @media screen and (min-width: 1440px) {
-    margin-top: 3rem;
   }
 `
 
@@ -89,6 +86,19 @@ export const DiffContainer = styled(Container)`
   gap: 0;
   justify-content: center;
   align-items: center;
+
+  @keyframes myAnimation {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .myAnimationClass {
+    animation: myAnimation 1s forwards;
+  }
 
   .wrapper-container {
     display: flex;

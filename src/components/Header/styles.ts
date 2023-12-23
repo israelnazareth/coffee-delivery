@@ -5,6 +5,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  animation: fadeIn 1s ease-in-out;
 
   @media screen and (min-width: 1024px) {
     padding: 2rem 0;
