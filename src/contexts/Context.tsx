@@ -24,7 +24,6 @@ type ContextType = {
   setSelectedUF: React.Dispatch<React.SetStateAction<string | undefined>>
   selectedCity: string | undefined
   setSelectedCity: React.Dispatch<React.SetStateAction<string | undefined>>
-  toggleModal: () => void
   handleUF: (event: React.ChangeEvent<HTMLSelectElement>) => void
   handleCity: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
@@ -46,11 +45,6 @@ function ContextProvider({ children }: ContextProviderProps) {
     undefined,
   )
 
-  const toggleModal = () => {
-    setOpacity(0)
-    setIsOpen(!isOpen)
-  }
-
   const handleUF = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity('')
     const location = JSON.parse(localStorage.getItem('location') || '{}')
@@ -68,7 +62,7 @@ function ContextProvider({ children }: ContextProviderProps) {
     localStorage.setItem('location', newLocation)
 
     setSelectedCity(target.value)
-    toggleModal()
+    setIsOpen(false)
   }
 
   useEffect(() => {
@@ -108,7 +102,6 @@ function ContextProvider({ children }: ContextProviderProps) {
       setSelectedCity,
       cities,
       setCities,
-      toggleModal,
       handleUF,
       handleCity,
     }),
