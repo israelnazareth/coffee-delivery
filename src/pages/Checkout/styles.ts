@@ -99,6 +99,51 @@ export const DiffContainer = styled(Container)`
     }
   }
 
+  .empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    svg {
+      color: ${({ theme }) => theme['brown-800']};
+    }
+
+    span {
+      color: ${({ theme }) => theme['brown-800']};
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    hr {
+      border: 1px solid ${({ theme }) => theme['brown-400']};
+      width: 100%;
+    }
+
+    a {
+      width: 100%;
+      text-decoration: none;
+    }
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 3rem;
+      border: none;
+      border-radius: 0.375rem;
+      background-color: ${({ theme }) => theme['yellow-300']};
+      color: ${({ theme }) => theme['white-pure']};
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
   @media (max-width: 1024px) {
     max-width: 26rem;
     margin: 0 auto;
@@ -133,6 +178,7 @@ export const PaymentContainer = styled.div`
     font-style: normal;
     font-weight: 400;
     color: ${({ theme }) => theme['brown-700']};
+    user-select: none;
   }
 
   input {
