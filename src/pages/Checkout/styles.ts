@@ -122,7 +122,7 @@ export const DiffContainer = styled(Container)`
     span {
       color: ${({ theme }) => theme['brown-800']};
       font-family: 'Baloo 2', sans-serif;
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-style: normal;
       font-weight: 700;
     }

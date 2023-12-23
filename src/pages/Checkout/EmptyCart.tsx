@@ -5,7 +5,7 @@ export default function EmptyCart() {
   return (
     <div className="empty-cart">
       <Icon.Coffee size={64} weight="duotone" />
-      <span>Ops... nenhum café selecionado! :’)</span>
+      <span>Ops... nenhum café selecionado ainda! :’)</span>
       <hr style={{ margin: '1rem 0' }} />
       <Link to="/">
         <button>SELECIONAR CAFÉS</button>
