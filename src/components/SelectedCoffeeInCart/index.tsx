@@ -1,15 +1,8 @@
 import { Minus, Plus } from '@phosphor-icons/react'
-import {
-  MainContainer,
-  ContainerWrapper,
-  ButtonsContainer,
-  RemoveButton,
-  TitleAndButtonsContainer,
-} from './styles'
+import * as Styled from './styles'
 import { CartCoffee } from '../CoffeeCard'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 import { Trash } from '@phosphor-icons/react/dist/ssr'
-import { useEffect } from 'react'
 
 interface SelectedCoffeeProps extends CartCoffee {
   cart: CartCoffee[]
@@ -17,28 +10,59 @@ interface SelectedCoffeeProps extends CartCoffee {
 }
 
 export default function SelectedCoffee(props: SelectedCoffeeProps) {
-  const { image, title, description, subTotal, quantity, cart, setCart } = props
+  const { image, title, description, quantity, price, cart, setCart } = props
 
-  const removeCoffeeFromCart = (title: string) => {
-    const newCart = cart.filter((item: CartCoffee) => item.title !== title)
+  const setNewCart = (newCart: CartCoffee[]) => {
     localStorage.setItem('cart', JSON.stringify(newCart))
     window.dispatchEvent(new Event('storage'))
     setCart(newCart)
   }
 
-  useEffect(() => {
-    setCart(cart)
-  }, [cart, setCart])
+  const removeCoffeeFromCart = (title: string) => {
+    const newCart = cart.filter((item: CartCoffee) => item.title !== title)
+    setNewCart(newCart)
+  }
+
+  const handleIncreaseQuantity = (title: string) => {
+    const newCart = cart.map((item: CartCoffee) => {
+      if (item.title === title) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+          subTotal: item.subTotal + item.price,
+        }
+      }
+      return item
+    })
+    setNewCart(newCart)
+  }
+
+  const handleDecreaseQuantity = (title: string) => {
+    const newCart = cart.map((item: CartCoffee) => {
+      if (item.title === title && item.quantity > 1) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+          subTotal: item.subTotal - item.price,
+        }
+      }
+      return item
+    })
+    setNewCart(newCart)
+  }
 
   return (
-    <MainContainer>
-      <ContainerWrapper>
+    <Styled.MainContainer>
+      <Styled.ContainerWrapper>
         <img src={image} alt={description} width="64px" />
-        <TitleAndButtonsContainer>
+        <Styled.TitleAndButtonsContainer>
           <span className="coffee-title">{title}</span>
-          <ButtonsContainer>
+          <Styled.ButtonsContainer>
             <div className="buttons-and-input-container">
-              <button type="button">
+              <button
+                type="button"
+                onClick={() => handleDecreaseQuantity(title)}
+              >
                 <Minus size={14} weight="bold" />
               </button>
               <input
@@ -48,21 +72,24 @@ export default function SelectedCoffee(props: SelectedCoffeeProps) {
                 disabled
                 value={quantity}
               />
-              <button type="button">
+              <button
+                type="button"
+                onClick={() => handleIncreaseQuantity(title)}
+              >
                 <Plus size={14} weight="bold" />
               </button>
             </div>
-            <RemoveButton
+            <Styled.RemoveButton
               type="button"
               onClick={() => removeCoffeeFromCart(title)}
             >
               <Trash size={16} />
               <span>REMOVER</span>
-            </RemoveButton>
-          </ButtonsContainer>
-        </TitleAndButtonsContainer>
-      </ContainerWrapper>
-      <div className="coffee-price">R$ {NumberToBRLCurrency(subTotal)}</div>
-    </MainContainer>
+            </Styled.RemoveButton>
+          </Styled.ButtonsContainer>
+        </Styled.TitleAndButtonsContainer>
+      </Styled.ContainerWrapper>
+      <div className="coffee-price">R$ {NumberToBRLCurrency(price)}</div>
+    </Styled.MainContainer>
   )
 }
