@@ -69,7 +69,11 @@ export default function SelectedCoffeesContainer() {
                   </span>
                 </div>
               </div>
-              <button type="button" className="order-confirm-button">
+              <button
+                form="user-data"
+                type="submit"
+                className="order-confirm-button"
+              >
                 CONFIRMAR PEDIDO
               </button>
             </Styled.ValuesContainer>

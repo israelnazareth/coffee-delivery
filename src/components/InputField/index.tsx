@@ -1,3 +1,4 @@
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { InputContainer } from './styles'
 import useWindowSize from '@/hooks/useWindowSize'
 
@@ -8,11 +9,22 @@ interface InputFieldProps {
   isOptional?: boolean
   maxWidth?: string
   maxLength?: number
+  name: string
+  register: UseFormRegister<FieldValues>
+  pattern?: string
 }
 
 export function InputField(props: InputFieldProps) {
-  const { placeholder, type, className, isOptional, maxWidth, maxLength } =
-    props
+  const {
+    name,
+    placeholder,
+    type,
+    className,
+    isOptional,
+    maxWidth,
+    maxLength,
+    register,
+  } = props
 
   const { width } = useWindowSize()
 
@@ -23,6 +35,7 @@ export function InputField(props: InputFieldProps) {
         placeholder={placeholder}
         className={className}
         maxLength={maxLength}
+        {...register(name)}
       />
       {isOptional && <span>Opcional</span>}
     </InputContainer>
