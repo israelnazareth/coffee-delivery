@@ -31,3 +31,17 @@ export async function fetchCities(selectedUF: string) {
     })
   }
 }
+
+export async function getDataByCep(cep: string) {
+  try {
+    const url = await fetch(API.getCep(cep))
+    const data = await url.json()
+    return data
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Ops...',
+      text: String(error),
+    })
+  }
+}
