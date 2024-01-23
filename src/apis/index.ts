@@ -8,4 +8,5 @@ export const API = {
     longitude: number,
   ) => `https://maps.googleapis.com/maps/api/geocode/json?latlng=
           ${latitude},${longitude}&key=${import.meta.env.VITE_API_KEY}`,
+  getCep: (cep: string) => `https://viacep.com.br/ws/${cep}/json/`,
 }
