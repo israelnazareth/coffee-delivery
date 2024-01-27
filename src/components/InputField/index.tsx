@@ -11,7 +11,7 @@ interface InputFieldProps {
   maxLength?: number
   name: string
   register: UseFormRegister<FieldValues>
-  pattern?: string
+  onKeyUp?: (event: React.FormEvent<HTMLInputElement>) => void
 }
 
 export function InputField(props: InputFieldProps) {
@@ -24,6 +24,7 @@ export function InputField(props: InputFieldProps) {
     maxWidth,
     maxLength,
     register,
+    onKeyUp,
   } = props
 
   const { width } = useWindowSize()
@@ -35,6 +36,7 @@ export function InputField(props: InputFieldProps) {
         placeholder={placeholder}
         className={className}
         maxLength={maxLength}
+        onKeyUp={onKeyUp}
         {...register(name)}
       />
       {isOptional && <span>Opcional</span>}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
 import * as Styled from './styles'
@@ -9,8 +10,9 @@ import { FieldValues, useForm } from 'react-hook-form'
 import { getDataByCep } from '@/services/locationAPI'
 
 export default function AddressAndPaymentContainer() {
-  const { register, handleSubmit, watch, setValue } = useForm()
+  const { register, handleSubmit, watch, setValue, setFocus } = useForm()
   const [selectedPayment, setSelectedPayment] = useState('')
+  const cep = watch('cep')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(event.target.value)
@@ -20,21 +22,27 @@ export default function AddressAndPaymentContainer() {
     console.log({ ...data, selectedPayment })
   }
 
+  const zipCodeMask = () => {
+    const value = cep.replace(/\D/g, '')
+    const newValue = value.replace(/^(\d{5})(\d)/, '$1-$2')
+    setValue('cep', newValue)
+  }
+
   const getData = async () => {
-    const cep = watch('cep')
-    if (cep.length === 8) {
+    if (cep.length === 9) {
       const response = await getDataByCep(cep)
       setValue('street', response.logradouro)
       setValue('neighborhood', response.bairro)
       setValue('city', response.localidade)
       setValue('uf', response.uf)
       setValue('complement', response.complemento)
+      setFocus('number')
     }
   }
 
   useEffect(() => {
     getData()
-  }, [watch('cep')])
+  }, [cep])
 
   return (
     <Styled.ContainerLeft>
@@ -55,7 +63,7 @@ export default function AddressAndPaymentContainer() {
               maxWidth="12.5rem"
               name="cep"
               register={register}
-              maxLength={8}
+              onKeyUp={zipCodeMask}
             />
             <InputField
               type="text"
