@@ -50,7 +50,6 @@ export const ContainerLeft = styled.div`
 export const ContainerRight = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
 
   @media (max-width: 1100px) {
     max-width: 26rem;
