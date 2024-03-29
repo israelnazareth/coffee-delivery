@@ -12,6 +12,7 @@ interface InputFieldProps {
   name: string
   register: UseFormRegister<FieldValues>
   onKeyUp?: (event: React.FormEvent<HTMLInputElement>) => void
+  errors?: any
 }
 
 export function InputField(props: InputFieldProps) {
@@ -25,21 +26,25 @@ export function InputField(props: InputFieldProps) {
     maxLength,
     register,
     onKeyUp,
+    errors,
   } = props
 
   const { width } = useWindowSize()
 
   return (
-    <InputContainer style={width >= 1100 ? { maxWidth } : undefined}>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className={className}
-        maxLength={maxLength}
-        onKeyUp={onKeyUp}
-        {...register(name)}
-      />
-      {isOptional && <span>Opcional</span>}
-    </InputContainer>
+    <>
+      <InputContainer style={width >= 1100 ? { maxWidth } : undefined}>
+        <input
+          type={type}
+          placeholder={placeholder}
+          className={className}
+          maxLength={maxLength}
+          onKeyUp={onKeyUp}
+          {...register(name)}
+        />
+        {isOptional && <span>Opcional</span>}
+      </InputContainer>
+      {errors[name] && <span>{errors[name].message}</span>}
+    </>
   )
 }

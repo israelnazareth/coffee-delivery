@@ -8,17 +8,41 @@ import { PaymentItem } from '@/components/Select'
 import { paymentMethods } from '@/constants'
 import { FieldValues, useForm } from 'react-hook-form'
 import { getDataByCep } from '@/services/locationAPI'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const createAddressSchema = z.object({
+  cep: z.string().min(9, 'O CEP é obrigatório'),
+  street: z.string().min(1, 'A Rua é obrigatória'),
+  number: z.string().min(1, 'O Número é obrigatório'),
+  complement: z.string().optional(),
+  neighborhood: z.string().min(1, 'O Bairro é obrigatório'),
+  city: z.string().min(1, 'A Cidade é obrigatória'),
+  uf: z.string().length(2).min(2, 'A UF é obrigatória'),
+})
 
 export default function AddressAndPaymentContainer() {
-  const { register, handleSubmit, watch, setValue, setFocus } = useForm()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    setFocus,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(createAddressSchema),
+  })
   const [selectedPayment, setSelectedPayment] = useState('')
   const cep = watch('cep')
+  console.log('🚀 ~ AddressAndPaymentContainer ~ errors:', errors)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(event.target.value)
   }
 
   const submitData = (data: FieldValues) => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    console.log('🚀 ~ submitData ~ cart:', cart.length)
     console.log({ ...data, selectedPayment })
   }
 
@@ -29,7 +53,7 @@ export default function AddressAndPaymentContainer() {
   }
 
   const getData = async () => {
-    if (cep.length === 9) {
+    if (cep?.length === 9) {
       const response = await getDataByCep(cep)
       setValue('street', response.logradouro)
       setValue('neighborhood', response.bairro)
@@ -42,7 +66,7 @@ export default function AddressAndPaymentContainer() {
 
   useEffect(() => {
     getData()
-  }, [cep])
+  }, [cep, getData])
 
   return (
     <Styled.ContainerLeft>
@@ -64,12 +88,14 @@ export default function AddressAndPaymentContainer() {
               name="cep"
               register={register}
               onKeyUp={zipCodeMask}
+              errors={errors}
             />
             <InputField
               type="text"
               placeholder="Rua"
               name="street"
               register={register}
+              errors={errors}
             />
             <Styled.InputsWrapper>
               <InputField
@@ -78,6 +104,7 @@ export default function AddressAndPaymentContainer() {
                 maxWidth="12.5rem"
                 name="number"
                 register={register}
+                errors={errors}
               />
               <InputField
                 type="text"
@@ -85,6 +112,7 @@ export default function AddressAndPaymentContainer() {
                 isOptional
                 name="complement"
                 register={register}
+                errors={errors}
               />
             </Styled.InputsWrapper>
             <Styled.InputsWrapper>
@@ -94,12 +122,14 @@ export default function AddressAndPaymentContainer() {
                 maxWidth="12.5rem"
                 name="neighborhood"
                 register={register}
+                errors={errors}
               />
               <InputField
                 type="text"
                 placeholder="Cidade"
                 name="city"
                 register={register}
+                errors={errors}
               />
               <InputField
                 type="text"
@@ -108,6 +138,7 @@ export default function AddressAndPaymentContainer() {
                 maxLength={2}
                 name="uf"
                 register={register}
+                errors={errors}
               />
             </Styled.InputsWrapper>
           </Styled.InputsContainer>
