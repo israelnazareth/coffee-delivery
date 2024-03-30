@@ -6,20 +6,23 @@ import * as Icon from '@phosphor-icons/react'
 import { InputField } from '@/components/InputField'
 import { PaymentItem } from '@/components/Select'
 import { paymentMethods } from '@/constants'
-import { FieldValues, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { getDataByCep } from '@/services/locationAPI'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const createAddressSchema = z.object({
-  cep: z.string().min(9, 'O CEP é obrigatório'),
-  street: z.string().min(1, 'A Rua é obrigatória'),
-  number: z.string().min(1, 'O Número é obrigatório'),
+  cep: z.string().min(9),
+  street: z.string().min(1),
+  number: z.string().min(1),
   complement: z.string().optional(),
-  neighborhood: z.string().min(1, 'O Bairro é obrigatório'),
-  city: z.string().min(1, 'A Cidade é obrigatória'),
-  uf: z.string().length(2).min(2, 'A UF é obrigatória'),
+  neighborhood: z.string().min(1),
+  city: z.string().min(1),
+  uf: z.string().length(2),
+  paymentMethod: z.string().min(1),
 })
+
+export type CreateAddressSchema = z.infer<typeof createAddressSchema>
 
 export default function AddressAndPaymentContainer() {
   const {
@@ -29,21 +32,20 @@ export default function AddressAndPaymentContainer() {
     setValue,
     setFocus,
     formState: { errors },
-  } = useForm({
+  } = useForm<CreateAddressSchema>({
     resolver: zodResolver(createAddressSchema),
   })
   const [selectedPayment, setSelectedPayment] = useState('')
   const cep = watch('cep')
-  console.log('🚀 ~ AddressAndPaymentContainer ~ errors:', errors)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(event.target.value)
   }
 
-  const submitData = (data: FieldValues) => {
+  const submitData = (data: CreateAddressSchema) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
     console.log('🚀 ~ submitData ~ cart:', cart.length)
-    console.log({ ...data, selectedPayment })
+    console.log('🚀 ~ submitData ~ data:', data)
   }
 
   const zipCodeMask = () => {
@@ -66,7 +68,9 @@ export default function AddressAndPaymentContainer() {
 
   useEffect(() => {
     getData()
-  }, [cep, getData])
+  }, [cep])
+
+  const hasErrors = Object.keys(errors).length > 0
 
   return (
     <Styled.ContainerLeft>
@@ -80,6 +84,11 @@ export default function AddressAndPaymentContainer() {
               <span>Informe o endereço onde deseja receber seu pedido</span>
             </div>
           </Styled.HeaderContainer>
+          {hasErrors && (
+            <span className="has-empty-fields">
+              Preencha os campos obrigatórios
+            </span>
+          )}
           <Styled.InputsContainer>
             <InputField
               type="text"
@@ -162,6 +171,8 @@ export default function AddressAndPaymentContainer() {
                   icon={icon}
                   onChange={handleChange}
                   checked={selectedPayment === id}
+                  register={register}
+                  errors={errors}
                 />
               )),
             )}

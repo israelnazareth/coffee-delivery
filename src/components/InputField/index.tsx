@@ -1,6 +1,7 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { InputContainer } from './styles'
 import useWindowSize from '@/hooks/useWindowSize'
+import { CreateAddressSchema } from '@/pages/Checkout/Address&PaymentContainer'
 
 interface InputFieldProps {
   placeholder: string
@@ -9,10 +10,10 @@ interface InputFieldProps {
   isOptional?: boolean
   maxWidth?: string
   maxLength?: number
-  name: string
-  register: UseFormRegister<FieldValues>
+  name: keyof CreateAddressSchema
+  register: UseFormRegister<CreateAddressSchema>
   onKeyUp?: (event: React.FormEvent<HTMLInputElement>) => void
-  errors?: any
+  errors?: FieldErrors<CreateAddressSchema>
 }
 
 export function InputField(props: InputFieldProps) {
@@ -31,20 +32,21 @@ export function InputField(props: InputFieldProps) {
 
   const { width } = useWindowSize()
 
+  const error = errors && errors[name] ? 'error' : ''
+
   return (
     <>
       <InputContainer style={width >= 1100 ? { maxWidth } : undefined}>
         <input
           type={type}
           placeholder={placeholder}
-          className={className}
+          className={`${className} ${error}`}
           maxLength={maxLength}
           onKeyUp={onKeyUp}
           {...register(name)}
         />
         {isOptional && <span>Opcional</span>}
       </InputContainer>
-      {errors[name] && <span>{errors[name].message}</span>}
     </>
   )
 }
