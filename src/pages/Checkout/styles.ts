@@ -18,9 +18,16 @@ export const Container = styled.div`
   padding: 2.5rem;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 1.5rem;
   border-radius: 0.375rem;
   background: ${({ theme }) => theme['brown-200']};
+
+  .has-empty-fields {
+    color: ${({ theme }) => theme['pure-red']};
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
+  }
 `
 
 export const InputsContainer = styled.div`
@@ -45,6 +52,11 @@ export const ContainerLeft = styled.div`
   flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 2rem;
+
+  @media screen and (max-width: 1100px) {
+    max-width: 26rem;
+    margin: 0 auto;
+  }
 `
 
 export const ContainerRight = styled.div`
@@ -153,7 +165,7 @@ export const DiffContainer = styled(Container)`
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     max-width: 26rem;
     margin: 0 auto;
   }
@@ -179,6 +191,10 @@ export const PaymentContainer = styled.div`
     color: black;
     white-space: nowrap;
     width: 12rem;
+
+    &.error {
+      outline: 1px solid var(--brand-yellow-dark, #f00);
+    }
   }
 
   span {
@@ -199,7 +215,7 @@ export const PaymentContainer = styled.div`
     background: ${({ theme }) => theme['purple-100']};
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1100px) {
     flex-direction: row;
     justify-content: space-between;
   }

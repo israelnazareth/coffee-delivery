@@ -17,8 +17,13 @@ export const InputContainer = styled.label`
     border-radius: 0.25rem;
     color: ${({ theme }) => theme['brown-700']};
 
+    &.error,
+    &.error:focus {
+      outline: ${({ theme }) => `1px solid ${theme['pure-red']}`};
+    }
+
     &:focus {
-      outline: 1px solid var(--brand-yellow-dark, #c47f17);
+      outline: ${({ theme }) => `1px solid ${theme['yellow-500']}`};
     }
   }
 
