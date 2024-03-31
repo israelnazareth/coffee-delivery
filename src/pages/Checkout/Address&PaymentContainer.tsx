@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { getDataByCep } from '@/services/locationAPI'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 
 const createAddressSchema = z.object({
   cep: z.string().min(9),
@@ -35,18 +36,23 @@ export default function AddressAndPaymentContainer() {
   } = useForm<CreateAddressSchema>({
     resolver: zodResolver(createAddressSchema),
   })
+
+  const navigate = useNavigate()
   const [selectedPayment, setSelectedPayment] = useState('')
-  const cep = watch('cep')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(event.target.value)
   }
 
   const submitData = (data: CreateAddressSchema) => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-    console.log('🚀 ~ submitData ~ cart:', cart.length)
-    console.log('🚀 ~ submitData ~ data:', data)
+    JSON.parse(localStorage.getItem('checkoutData') || '{}')
+    localStorage.setItem('checkoutData', JSON.stringify(data))
+    localStorage.setItem('cart', JSON.stringify([]))
+    window.dispatchEvent(new Event('storage'))
+    navigate('/success')
   }
+
+  const cep = watch('cep')
 
   const zipCodeMask = () => {
     const value = cep.replace(/\D/g, '')
