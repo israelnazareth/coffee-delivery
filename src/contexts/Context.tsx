@@ -65,11 +65,21 @@ function ContextProvider({ children }: ContextProviderProps) {
     setIsOpen(false)
   }
 
-  useEffect(() => {
-    fetchStates().then((states) => setStates(states))
+  const getStates = async () => {
+    const states = await fetchStates()
+    setStates(states)
+  }
+
+  const getCities = async () => {
     if (isOpen && selectedUF) {
-      fetchCities(selectedUF).then((cities) => setCities(cities))
+      const cities = await fetchCities(selectedUF)
+      setCities(cities)
     }
+  }
+
+  useEffect(() => {
+    getStates()
+    getCities()
   }, [isOpen, selectedUF])
 
   useEffect(() => {
