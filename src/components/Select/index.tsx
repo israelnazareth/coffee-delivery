@@ -20,7 +20,7 @@ export function PaymentItem(props: PaymentItemProps) {
 
   return (
     <label htmlFor={id} className={`${isChecked} ${error}`}>
-      <Icon size={22} color="#8047F8" />
+      <Icon size={22} color={error ? '#f00' : '#8047F8'} />
       <input
         type="radio"
         id={id}

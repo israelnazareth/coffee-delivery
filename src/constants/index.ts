@@ -17,3 +17,9 @@ export const paymentMethods = [
     icon: Icon.Money,
   },
 ]
+
+export const paymentMethodDictionary = {
+  'credit-card': 'Cartão de crédito',
+  'debit-card': 'Cartão de débito',
+  money: 'Dinheiro',
+}
