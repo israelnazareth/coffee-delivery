@@ -157,7 +157,7 @@ export const DiffContainer = styled(Container)`
       border: none;
       border-radius: 0.375rem;
       background-color: ${({ theme }) => theme['yellow-300']};
-      color: ${({ theme }) => theme['white-pure']};
+      color: ${({ theme }) => theme['pure-white']};
       font-size: 0.875rem;
       font-style: normal;
       font-weight: 700;
@@ -269,7 +269,7 @@ export const ValuesContainer = styled.div`
     border: none;
     border-radius: 0.375rem;
     background-color: ${({ theme }) => theme['yellow-300']};
-    color: ${({ theme }) => theme['white-pure']};
+    color: ${({ theme }) => theme['pure-white']};
     font-size: 0.875rem;
     font-style: normal;
     font-weight: 700;

@@ -26,6 +26,9 @@ type ContextType = {
   setSelectedCity: React.Dispatch<React.SetStateAction<string | undefined>>
   handleUF: (event: React.ChangeEvent<HTMLSelectElement>) => void
   handleCity: (event: React.ChangeEvent<HTMLSelectElement>) => void
+  coffeeLoading: boolean
+  setCoffeeLoading: React.Dispatch<React.SetStateAction<boolean>>
+  showCoffeeLoading: () => void
 }
 
 const Context = createContext<ContextType | undefined>(undefined)
@@ -44,6 +47,7 @@ function ContextProvider({ children }: ContextProviderProps) {
   const [selectedCity, setSelectedCity] = useState<string | undefined>(
     undefined,
   )
+  const [coffeeLoading, setCoffeeLoading] = useState(false)
 
   const handleUF = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity('')
@@ -96,6 +100,13 @@ function ContextProvider({ children }: ContextProviderProps) {
     setSelectedUF(location?.uf)
   }, [])
 
+  const showCoffeeLoading = () => {
+    setCoffeeLoading(true)
+    setTimeout(() => {
+      setCoffeeLoading(false)
+    }, 3000)
+  }
+
   const contextValue: ContextType = useMemo(
     () => ({
       isOpen,
@@ -114,8 +125,20 @@ function ContextProvider({ children }: ContextProviderProps) {
       setCities,
       handleUF,
       handleCity,
+      coffeeLoading,
+      setCoffeeLoading,
+      showCoffeeLoading,
     }),
-    [isOpen, loading, opacity, states, cities, selectedUF, selectedCity],
+    [
+      isOpen,
+      loading,
+      opacity,
+      states,
+      cities,
+      selectedUF,
+      selectedCity,
+      coffeeLoading,
+    ],
   )
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>

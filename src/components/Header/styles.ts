@@ -43,7 +43,7 @@ export const ShoppingCartContainer = styled(GeneralButton)`
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme['yellow-500']};
-    color: ${({ theme }) => theme['white-pure']};
+    color: ${({ theme }) => theme['pure-white']};
     font-size: 0.75rem;
     border-radius: 50%;
     width: 1.25rem;

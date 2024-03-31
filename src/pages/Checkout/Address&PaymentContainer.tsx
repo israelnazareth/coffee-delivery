@@ -11,6 +11,7 @@ import { getDataByCep } from '@/services/locationAPI'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
+import { useMyContext } from '@/contexts/Context'
 
 const createAddressSchema = z.object({
   cep: z.string().min(9),
@@ -39,6 +40,7 @@ export default function AddressAndPaymentContainer() {
 
   const navigate = useNavigate()
   const [selectedPayment, setSelectedPayment] = useState('')
+  const { showCoffeeLoading } = useMyContext()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(event.target.value)
@@ -49,6 +51,7 @@ export default function AddressAndPaymentContainer() {
     localStorage.setItem('checkoutData', JSON.stringify(data))
     localStorage.setItem('cart', JSON.stringify([]))
     window.dispatchEvent(new Event('storage'))
+    showCoffeeLoading()
     navigate('/success')
   }
 
