@@ -89,6 +89,10 @@ export const CardFooter = styled.div`
         color: ${({ theme }) => theme['purple-300']};
         background-color: transparent;
         cursor: pointer;
+
+        &:hover {
+          color: ${({ theme }) => theme['purple-500']};
+        }
       }
 
       input {
@@ -114,6 +118,11 @@ export const CardFooter = styled.div`
       border: none;
       background-color: ${({ theme }) => theme['purple-500']};
       color: white;
+      transition: all 0.1s ease-in-out;
+
+      &:hover {
+        background-color: ${({ theme }) => theme['purple-300']};
+      }
     }
   }
 `

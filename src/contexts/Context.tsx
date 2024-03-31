@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 import { fetchCities, fetchStates } from '../services/locationAPI'
-import { City, State } from '../@types/styled'
+import { City, State } from '../@types/types'
 
 type ContextType = {
   isOpen: boolean
@@ -24,7 +24,6 @@ type ContextType = {
   setSelectedUF: React.Dispatch<React.SetStateAction<string | undefined>>
   selectedCity: string | undefined
   setSelectedCity: React.Dispatch<React.SetStateAction<string | undefined>>
-  toggleModal: () => void
   handleUF: (event: React.ChangeEvent<HTMLSelectElement>) => void
   handleCity: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
@@ -46,11 +45,6 @@ function ContextProvider({ children }: ContextProviderProps) {
     undefined,
   )
 
-  const toggleModal = () => {
-    setOpacity(0)
-    setIsOpen(!isOpen)
-  }
-
   const handleUF = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity('')
     const location = JSON.parse(localStorage.getItem('location') || '{}')
@@ -68,17 +62,32 @@ function ContextProvider({ children }: ContextProviderProps) {
     localStorage.setItem('location', newLocation)
 
     setSelectedCity(target.value)
-    toggleModal()
+    setIsOpen(false)
+  }
+
+  const getStates = async () => {
+    const states = await fetchStates()
+    setStates(states)
+  }
+
+  const getCities = async () => {
+    if (isOpen && selectedUF) {
+      const cities = await fetchCities(selectedUF)
+      setCities(cities)
+    }
   }
 
   useEffect(() => {
-    fetchStates().then((states) => setStates(states))
-    if (isOpen && selectedUF) {
-      fetchCities(selectedUF).then((cities) => setCities(cities))
-    }
+    getStates()
+    getCities()
   }, [isOpen, selectedUF])
 
   useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    if (!cart) {
+      localStorage.setItem('cart', JSON.stringify([]))
+    }
+
     const location = JSON.parse(localStorage.getItem('location') || '{}')
     if (!location) {
       localStorage.setItem('location', JSON.stringify({}))
@@ -103,7 +112,6 @@ function ContextProvider({ children }: ContextProviderProps) {
       setSelectedCity,
       cities,
       setCities,
-      toggleModal,
       handleUF,
       handleCity,
     }),

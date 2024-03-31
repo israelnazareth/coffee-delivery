@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${({ theme }: any) => theme['background-100']};
+    background-color: ${({ theme }) => theme['background-100']};
     -webkit-font-smoothing: antialiased;
   }
 
@@ -27,10 +27,40 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    color: ${({ theme }: any) => theme['brown-900']};
+    color: ${({ theme }) => theme['brown-900']};
   }
 
   h2, h3 {
-    color: ${({ theme }: any) => theme['brown-800']};
+    color: ${({ theme }) => theme['brown-800']};
   }
+
+
+  .ikkaVS {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+// Animations
+@keyframes fadeIn {
+    from {
+    opacity: 0;
+  }
+    to {
+    opacity: 1;
+  }
+}
+
+@keyframes upToDown {
+    from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+    to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 `

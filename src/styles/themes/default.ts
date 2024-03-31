@@ -16,6 +16,8 @@ export const defaultTheme = {
   'brown-300': '#EDEDED',
   'brown-200': '#F3F2F2',
 
+  'pure-red': '#FF0000',
+
   'background-100': '#FAFAFA',
   'white-pure': '#FFF',
 }

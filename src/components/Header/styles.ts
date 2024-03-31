@@ -5,6 +5,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  animation: fadeIn 1s ease-in-out;
 
   @media screen and (min-width: 1024px) {
     padding: 2rem 0;
@@ -37,13 +38,8 @@ export const LocationButton = styled(GeneralButton)`
 export const ShoppingCartContainer = styled(GeneralButton)`
   background: ${({ theme }) => theme['yellow-100']};
 
-  a {
-    color: ${({ theme }) => theme['yellow-500']};
-    height: 22px;
-  }
-
   span {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme['yellow-500']};

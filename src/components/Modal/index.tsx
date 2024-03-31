@@ -1,19 +1,15 @@
 import { StyledModal } from './styles'
 import { useMyContext } from '../../contexts/Context'
+import { PropsWithChildren } from 'react'
 
-export function Modal() {
-  const {
-    isOpen,
-    opacity,
-    setOpacity,
-    states,
-    cities,
-    toggleModal,
-    handleUF,
-    selectedUF,
-    handleCity,
-    selectedCity,
-  } = useMyContext()
+interface ModalProps {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function Modal(props: PropsWithChildren<ModalProps>) {
+  const { isOpen, setIsOpen, children } = props
+  const { opacity, setOpacity } = useMyContext()
 
   const afterOpen = () => {
     setTimeout(() => {
@@ -28,6 +24,11 @@ export function Modal() {
     })
   }
 
+  const toggleModal = () => {
+    setOpacity(0)
+    setIsOpen(!isOpen)
+  }
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -37,27 +38,7 @@ export function Modal() {
       onEscapeKeydown={toggleModal}
       backgroundProps={{ opacity }}
     >
-      <h2>Selecione a sua localização</h2>
-      <div>
-        <select name="" id="" onChange={handleUF} value={selectedUF}>
-          <option value="" disabled selected>
-            UF
-          </option>
-          {states?.map((state) => (
-            <option key={state.id}>{state.sigla}</option>
-          ))}
-        </select>
-        <select name="" id="" onChange={handleCity} value={selectedCity}>
-          <option value="" disabled selected>
-            Cidade
-          </option>
-          {cities?.map((city) => (
-            <option key={city.id} value={city.nome}>
-              {city.nome}
-            </option>
-          ))}
-        </select>
-      </div>
+      {children}
     </StyledModal>
   )
 }

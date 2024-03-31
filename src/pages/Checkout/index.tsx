@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import AddressAndPaymentContainer from './Address&PaymentContainer'
+import SelectedCoffeesContainer from './SelectedCoffeesContainer'
+import * as Styled from './styles'
 
 export function Checkout() {
   return (
-    <>
-      <h1>Checkout</h1>
-      <Link to="/success">Success</Link>
-    </>
+    <Styled.MainContainer>
+      {/* <Link to="/success">Success</Link> */}
+      <AddressAndPaymentContainer />
+      <SelectedCoffeesContainer />
+    </Styled.MainContainer>
   )
 }

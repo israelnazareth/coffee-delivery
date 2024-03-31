@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 import { API } from '../apis'
-import { City, State } from '../@types/styled'
+import { City, State } from '../@types/types'
 
 export async function fetchStates() {
   try {
@@ -23,6 +23,20 @@ export async function fetchCities(selectedUF: string) {
     const data: City[] = await url.json()
     const sortedCities = data.sort((a, b) => (a.nome > b.nome ? 1 : -1))
     return sortedCities
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Ops...',
+      text: String(error),
+    })
+  }
+}
+
+export async function getDataByCep(cep: string) {
+  try {
+    const url = await fetch(API.getCep(cep))
+    const data = await url.json()
+    return data
   } catch (error) {
     Swal.fire({
       icon: 'error',

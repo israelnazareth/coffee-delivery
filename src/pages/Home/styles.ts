@@ -4,6 +4,7 @@ export const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 3rem 0 3rem;
+  animation: upToDown 1.1s ease-in-out;
 
   img {
     align-self: center;
@@ -135,6 +136,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  animation: upToDown 1.4s ease-in-out;
 `
 
 export const CoffeesContainer = styled.div`
