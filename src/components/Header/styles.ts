@@ -6,6 +6,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   padding: 1rem 0;
   animation: fadeIn 1s ease-in-out;
+  gap: 0.75rem;
 
   @media screen and (min-width: 1024px) {
     padding: 2rem 0;
