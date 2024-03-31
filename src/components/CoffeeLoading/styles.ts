@@ -7,6 +7,7 @@ export const CoffeeLoadingContainer = styled.main`
   align-items: center;
   height: 100vh;
   background-color: ${({ theme }) => theme['yellow-100']};
+  animation: fadeIn 0.5s ease-in-out;
 `
 
 export const Cup = styled.div`
