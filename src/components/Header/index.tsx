@@ -8,9 +8,12 @@ import {
   HeaderContainer,
   LocationButton,
   ShoppingCartContainer,
+  selectCityStyles,
+  selectStateStyles,
 } from './styles'
 import { useMyContext } from '@/contexts/Context'
 import { CartCoffee } from '../CoffeeCard'
+import Select from 'react-select'
 
 export function Header() {
   const {
@@ -46,6 +49,16 @@ export function Header() {
     return () => window.removeEventListener('storage', getGlobalQuantity)
   }, [])
 
+  const citiesOptions = cities?.map((city) => ({
+    value: city.nome,
+    label: city.nome,
+  }))
+
+  const statesOptions = states?.map((state) => ({
+    value: state.sigla,
+    label: state.sigla,
+  }))
+
   return (
     <HeaderContainer>
       <Link to="/">
@@ -65,25 +78,23 @@ export function Header() {
       </ButtonsContainer>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
         <h2>Selecione a sua localização</h2>
-        <div>
-          <select name="" id="" onChange={handleUF} value={selectedUF}>
-            <option value="" disabled selected>
-              UF
-            </option>
-            {states?.map((state) => (
-              <option key={state.id}>{state.sigla}</option>
-            ))}
-          </select>
-          <select name="" id="" onChange={handleCity} value={selectedCity}>
-            <option value="" disabled selected>
-              Cidade
-            </option>
-            {cities?.map((city) => (
-              <option key={city.id} value={city.nome}>
-                {city.nome}
-              </option>
-            ))}
-          </select>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <Select
+            placeholder="UF"
+            styles={selectStateStyles}
+            options={statesOptions}
+            onChange={(target) => handleUF(target?.value || '')}
+            value={selectedUF ? { value: selectedUF, label: selectedUF } : null}
+          />
+          <Select
+            placeholder="Cidade"
+            styles={selectCityStyles}
+            options={citiesOptions}
+            onChange={(target) => handleCity(target?.value || '')}
+            value={
+              selectedCity ? { value: selectedCity, label: selectedCity } : null
+            }
+          />
         </div>
       </Modal>
     </HeaderContainer>
