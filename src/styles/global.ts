@@ -8,7 +8,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   :focus {
-    outline: 0;
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: ${({ theme }) => theme['purple-500']} solid 1px;
+    border-radius: 0.2rem;
   }
 
   body {
