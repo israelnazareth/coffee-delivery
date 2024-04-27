@@ -1,3 +1,4 @@
+import { CSSObjectWithLabel } from 'react-select'
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
@@ -53,3 +54,43 @@ export const ShoppingCartContainer = styled(GeneralButton)`
     margin: 0 0 2.3rem 2.3rem;
   }
 `
+
+export const menuStyle = (baseStyles: CSSObjectWithLabel) => ({
+  ...baseStyles,
+  color: '#574F4D',
+  '::-webkit-scrollbar': {
+    width: '4px',
+    height: '0px',
+  },
+  '::-webkit-scrollbar-track': {
+    background: '#f1f1f1',
+  },
+  '::-webkit-scrollbar-thumb': {
+    background: '#888',
+  },
+  '::-webkit-scrollbar-thumb:hover': {
+    background: '#555',
+  },
+})
+
+const brownColor = (baseStyles: CSSObjectWithLabel) => ({
+  ...baseStyles,
+  color: '#574F4D',
+})
+
+export const selectStateStyles = {
+  control: (baseStyles: CSSObjectWithLabel) => ({
+    ...baseStyles,
+  }),
+  menuList: menuStyle,
+  singleValue: brownColor,
+}
+
+export const selectCityStyles = {
+  control: (baseStyles: CSSObjectWithLabel) => ({
+    ...baseStyles,
+    width: '200px',
+  }),
+  menuList: menuStyle,
+  singleValue: brownColor,
+}
