@@ -8,7 +8,11 @@ export const StyledModal = Modal.styled`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
   border-radius: 6px;
   font-family: 'Baloo 2', cursive;
+  background-color: #F3F2F2;
+
+  h2 {
+    color: #40393B;
+  }
 `

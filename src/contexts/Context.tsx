@@ -24,8 +24,8 @@ type ContextType = {
   setSelectedUF: React.Dispatch<React.SetStateAction<string | undefined>>
   selectedCity: string | undefined
   setSelectedCity: React.Dispatch<React.SetStateAction<string | undefined>>
-  handleUF: (event: React.ChangeEvent<HTMLSelectElement>) => void
-  handleCity: (event: React.ChangeEvent<HTMLSelectElement>) => void
+  handleUF: (value: string) => void
+  handleCity: (value: string) => void
   coffeeLoading: boolean
   setCoffeeLoading: React.Dispatch<React.SetStateAction<boolean>>
   showCoffeeLoading: () => void
@@ -49,23 +49,23 @@ function ContextProvider({ children }: ContextProviderProps) {
   )
   const [coffeeLoading, setCoffeeLoading] = useState(false)
 
-  const handleUF = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleUF = (value: string) => {
     setSelectedCity('')
     const location = JSON.parse(localStorage.getItem('location') || '{}')
-    const newLocation = JSON.stringify({ ...location, uf: target.value })
+    const newLocation = JSON.stringify({ ...location, uf: value })
 
     localStorage.setItem('location', newLocation)
 
-    setSelectedUF(target.value)
+    setSelectedUF(value)
   }
 
-  const handleCity = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCity = (value: string) => {
     const location = JSON.parse(localStorage.getItem('location') || '{}')
-    const newLocation = JSON.stringify({ ...location, city: target.value })
+    const newLocation = JSON.stringify({ ...location, city: value })
 
     localStorage.setItem('location', newLocation)
 
-    setSelectedCity(target.value)
+    setSelectedCity(value)
     setIsOpen(false)
   }
 

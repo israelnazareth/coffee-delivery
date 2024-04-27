@@ -40,7 +40,7 @@ export default function AddressAndPaymentContainer() {
 
   const navigate = useNavigate()
   const [selectedPayment, setSelectedPayment] = useState('')
-  const { showCoffeeLoading } = useMyContext()
+  const { showCoffeeLoading, selectedUF, selectedCity } = useMyContext()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPayment(event.target.value)
@@ -71,8 +71,10 @@ export default function AddressAndPaymentContainer() {
       setValue('city', response.localidade)
       setValue('uf', response.uf)
       setValue('complement', response.complemento)
-      setFocus('number')
+      return setFocus('number')
     }
+    setValue('city', selectedCity || '')
+    setValue('uf', selectedUF || '')
   }
 
   useEffect(() => {
