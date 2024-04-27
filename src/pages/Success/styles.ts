@@ -15,6 +15,7 @@ export const MainContainer = styled.div`
 
   > p {
     margin-bottom: 2.5rem;
+    color: ${({ theme }) => theme['brown-700']};
   }
 
   @media screen and (min-width: 1024px) {
@@ -70,6 +71,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  color: ${({ theme }) => theme['brown-700']};
 
   > span {
     display: flex;
@@ -80,5 +82,9 @@ export const Container = styled.div`
 
   p {
     line-height: 1.5;
+  }
+
+  .street-and-number, .delivery-time, .payment-method {
+    font-weight: 700;
   }
 `

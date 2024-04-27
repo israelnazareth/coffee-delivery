@@ -26,7 +26,7 @@ export function Success() {
             </span>
             <p>
               Entrega em{' '}
-              <span>
+              <span className="street-and-number">
                 {checkoutData.street}, {checkoutData.number}
               </span>
               {`, ${checkoutData.complement}`} - {checkoutData.neighborhood} -{' '}
@@ -39,7 +39,7 @@ export function Success() {
             </span>
             <div>
               <p>Previsão de entrega</p>
-              <p>20 - 30 min</p>
+              <p className="delivery-time">20 - 30 min</p>
             </div>
           </Container>
           <Container>
@@ -48,7 +48,7 @@ export function Success() {
             </span>
             <div>
               <p>Pagamento na entrega</p>
-              <p>
+              <p className="payment-method">
                 {
                   paymentMethodDictionary[
                     checkoutData?.paymentMethod as keyof typeof paymentMethodDictionary
