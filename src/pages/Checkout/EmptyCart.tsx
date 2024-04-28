@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom'
 import * as Icon from '@phosphor-icons/react'
 
 export default function EmptyCart() {
+  const goToTheTop = () => window.scrollTo({ top: 0 })
+
   return (
     <div className="empty-cart">
       <Icon.Coffee size={64} weight="duotone" />
       <span>Ops... nenhum café selecionado ainda! :’)</span>
       <hr style={{ margin: '1rem 0' }} />
-      <Link to="/">
+      <Link to="/" onClick={goToTheTop}>
         <button>SELECIONAR CAFÉS</button>
       </Link>
     </div>

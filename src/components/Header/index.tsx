@@ -59,9 +59,11 @@ export function Header() {
     label: state.sigla,
   }))
 
+  const goToTheTop = () => window.scrollTo({ top: 0 })
+
   return (
     <HeaderContainer>
-      <Link to="/">
+      <Link to="/" onClick={goToTheTop}>
         <img src={logo} alt="coffe delivery logo" />
       </Link>
       <ButtonsContainer>
@@ -69,7 +71,7 @@ export function Header() {
           <MapPin size={22} weight="fill" />
           {loading ? 'Carregando...' : renderLocation()}
         </LocationButton>
-        <Link to="/checkout">
+        <Link to="/checkout" onClick={goToTheTop}>
           <ShoppingCartContainer>
             <ShoppingCart size={22} weight="fill" color="#C47F17" />
             {globalQuantity > 0 && <span>{globalQuantity}</span>}
