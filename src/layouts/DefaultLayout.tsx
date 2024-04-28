@@ -18,10 +18,12 @@ export function DefaultLayout() {
       {coffeeLoading ? (
         <CoffeeLoading />
       ) : (
-        <Main>
+        <>
           <Header />
-          <Outlet />
-        </Main>
+          <Main>
+            <Outlet />
+          </Main>
+        </>
       )}
     </>
   )

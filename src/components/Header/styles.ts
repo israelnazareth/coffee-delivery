@@ -5,12 +5,21 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1rem;
   animation: fadeIn 1s ease-in-out;
   gap: 0.75rem;
+  position: fixed;
+  background-color: ${({ theme }) => theme['background-100']};
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 70rem;
+  width: 100%;
+  z-index: 2;
 
   @media screen and (min-width: 1024px) {
-    padding: 2rem 0;
+    padding: 1rem;
   }
 `
 

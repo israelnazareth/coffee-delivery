@@ -42,6 +42,9 @@ export function CoffeeCard(props: CoffeeCardProps) {
     const s = quantity > 1 ? 's' : ''
     const addedCoffee = `${quantity} ${title} adicionado${s} ao carrinho!`
 
+    const toastPosition =
+      window.innerWidth < 768 ? 'bottom-center' : 'top-right'
+
     if (coffeeIsInTheCart) {
       const newCart = cart.map((item: CartCoffee) => {
         if (item.title === title) {
@@ -56,12 +59,12 @@ export function CoffeeCard(props: CoffeeCardProps) {
 
       localStorage.setItem('cart', JSON.stringify(newCart))
       window.dispatchEvent(new Event('storage'))
-      toast(`+${addedCoffee}`)
-    } else {
-      localStorage.setItem('cart', JSON.stringify([...cart, newCoffee]))
-      window.dispatchEvent(new Event('storage'))
-      toast(addedCoffee)
+      return toast(`+${addedCoffee}`, { position: toastPosition })
     }
+
+    localStorage.setItem('cart', JSON.stringify([...cart, newCoffee]))
+    window.dispatchEvent(new Event('storage'))
+    toast(addedCoffee, { position: toastPosition })
   }
 
   const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,38 +90,37 @@ export function CoffeeCard(props: CoffeeCardProps) {
         <h3>{title}</h3>
         <p>{description}</p>
         <CardFooter>
-          <div className="currency-and-price">
-            <span className="currency">R$</span>
-            <span className="price">{NumberToBRLCurrency(price)}</span>
-          </div>
-          <div className="input-and-buy">
-            <div className="buttons-and-input-container">
-              <button type="button" onClick={handleDecreaseQuantity}>
-                <Minus size={14} weight="bold" />
-              </button>
-              <input
-                type="number"
-                min="1"
-                placeholder="1"
-                value={quantity}
-                onChange={handleChangeQuantity}
-                disabled
-              />
-              <button type="button" onClick={handleIncreaseQuantity}>
-                <Plus size={14} weight="bold" />
-              </button>
+          <div className="price-and-unit">
+            <div className="currency-and-price">
+              <span className="currency">R$</span>
+              <span className="price">{NumberToBRLCurrency(price)}</span>
             </div>
-
-            <button type="button" className="cart" onClick={handleSendToCart}>
-              <ShoppingCart size={22} weight="fill" />
-            </button>
+            <div className="input-and-buy">
+              <div className="buttons-and-input-container">
+                <button type="button" onClick={handleDecreaseQuantity}>
+                  <Minus size={14} weight="bold" />
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  placeholder="1"
+                  value={quantity}
+                  onChange={handleChangeQuantity}
+                  disabled
+                />
+                <button type="button" onClick={handleIncreaseQuantity}>
+                  <Plus size={14} weight="bold" />
+                </button>
+              </div>
+            </div>
           </div>
+
+          <button type="button" className="cart" onClick={handleSendToCart}>
+            <span>Adicionar</span>
+            <span>R$ {NumberToBRLCurrency(price * quantity)}</span>
+          </button>
         </CardFooter>
       </CardContent>
     </CardContainer>
   )
-}
-
-CoffeeCard.defaultProps = {
-  tags: [],
 }
