@@ -3,6 +3,7 @@ import { CardContainer, CardContent, CardFooter } from './styles'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 import { Minus, ShoppingCart, Plus } from '@phosphor-icons/react'
 import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface CoffeeCardProps {
   image: string
@@ -18,6 +19,7 @@ export interface CartCoffee extends CoffeeCardProps {
 }
 
 export function CoffeeCard(props: CoffeeCardProps) {
+  const navigate = useNavigate()
   const [quantity, setQuantity] = useState(1)
   const { image, tags, title, description, price } = props
 
@@ -87,38 +89,37 @@ export function CoffeeCard(props: CoffeeCardProps) {
         <h3>{title}</h3>
         <p>{description}</p>
         <CardFooter>
-          <div className="currency-and-price">
-            <span className="currency">R$</span>
-            <span className="price">{NumberToBRLCurrency(price)}</span>
-          </div>
-          <div className="input-and-buy">
-            <div className="buttons-and-input-container">
-              <button type="button" onClick={handleDecreaseQuantity}>
-                <Minus size={14} weight="bold" />
-              </button>
-              <input
-                type="number"
-                min="1"
-                placeholder="1"
-                value={quantity}
-                onChange={handleChangeQuantity}
-                disabled
-              />
-              <button type="button" onClick={handleIncreaseQuantity}>
-                <Plus size={14} weight="bold" />
-              </button>
+          <div className="price-and-unit">
+            <div className="currency-and-price">
+              <span className="currency">R$</span>
+              <span className="price">{NumberToBRLCurrency(price)}</span>
             </div>
-
-            <button type="button" className="cart" onClick={handleSendToCart}>
-              <ShoppingCart size={22} weight="fill" />
-            </button>
+            <div className="input-and-buy">
+              <div className="buttons-and-input-container">
+                <button type="button" onClick={handleDecreaseQuantity}>
+                  <Minus size={14} weight="bold" />
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  placeholder="1"
+                  value={quantity}
+                  onChange={handleChangeQuantity}
+                  disabled
+                />
+                <button type="button" onClick={handleIncreaseQuantity}>
+                  <Plus size={14} weight="bold" />
+                </button>
+              </div>
+            </div>
           </div>
+
+          <button type="button" className="cart" onClick={handleSendToCart}>
+            <span>Adicionar</span>
+            <span>R$ {NumberToBRLCurrency(price * quantity)}</span>
+          </button>
         </CardFooter>
       </CardContent>
     </CardContainer>
   )
-}
-
-CoffeeCard.defaultProps = {
-  tags: [],
 }

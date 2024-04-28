@@ -52,10 +52,20 @@ export const CardContent = styled.div`
 
 export const CardFooter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+
+  .price-and-unit {
+    display: flex;
+    gap: 1rem;
+  }
 
   .currency-and-price {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     color: ${({ theme }) => theme['brown-700']};
 
     .currency {
@@ -108,21 +118,43 @@ export const CardFooter = styled.div`
         margin: 0;
       }
     }
+  }
 
-    .cart {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 0.375rem;
-      border: none;
-      background-color: ${({ theme }) => theme['purple-500']};
-      color: white;
-      transition: all 0.1s ease-in-out;
+  .cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Baloo 2', sans-serif;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    border: none;
+    background-color: ${({ theme }) => theme['purple-500']};
+    color: white;
+    transition: all 0.1s ease-in-out;
+    width: 85%;
 
-      &:hover {
-        background-color: ${({ theme }) => theme['purple-300']};
-      }
+    &:hover {
+      background-color: ${({ theme }) => theme['purple-300']};
+    }
+  }
+
+  .go-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Baloo 2', sans-serif;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    border: none;
+    background-color: ${({ theme }) => theme['yellow-300']};
+    color: white;
+    transition: all 0.1s ease-in-out;
+    width: 85%;
+
+    &:hover {
+      background-color: ${({ theme }) => theme['yellow-500']};
     }
   }
 `
