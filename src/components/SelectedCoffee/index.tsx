@@ -54,7 +54,7 @@ export default function SelectedCoffee(props: SelectedCoffeeProps) {
   return (
     <Styled.MainContainer>
       <Styled.ContainerWrapper>
-        <img src={image} alt={description} width="64px" />
+        <img src={image} alt={description} />
         <Styled.TitleAndButtonsContainer>
           <span className="coffee-title">{title}</span>
           <Styled.ButtonsContainer>

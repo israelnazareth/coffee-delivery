@@ -182,7 +182,7 @@ export const PaymentContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: left;
-    gap: 0.75rem;
+    gap: 0.5rem;
     cursor: pointer;
     font-size: 0.75rem;
     border-radius: 0.375rem;
@@ -190,7 +190,7 @@ export const PaymentContainer = styled.div`
     padding: 1rem;
     color: black;
     white-space: nowrap;
-    width: 12rem;
+    width: 11rem;
 
     &.error {
       outline: 1px solid var(--brand-yellow-dark, #f00);

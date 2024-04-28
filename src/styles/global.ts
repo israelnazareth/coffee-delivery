@@ -19,7 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme['background-100']};
     -webkit-font-smoothing: antialiased;
-    min-width: 28.75rem;
   }
 
   body, input, textarea, button {
