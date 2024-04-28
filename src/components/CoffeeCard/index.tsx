@@ -3,7 +3,6 @@ import { CardContainer, CardContent, CardFooter } from './styles'
 import { NumberToBRLCurrency } from '@/utils/NumberToCurrency'
 import { Minus, ShoppingCart, Plus } from '@phosphor-icons/react'
 import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom'
 
 interface CoffeeCardProps {
   image: string
@@ -19,7 +18,6 @@ export interface CartCoffee extends CoffeeCardProps {
 }
 
 export function CoffeeCard(props: CoffeeCardProps) {
-  const navigate = useNavigate()
   const [quantity, setQuantity] = useState(1)
   const { image, tags, title, description, price } = props
 
@@ -44,6 +42,9 @@ export function CoffeeCard(props: CoffeeCardProps) {
     const s = quantity > 1 ? 's' : ''
     const addedCoffee = `${quantity} ${title} adicionado${s} ao carrinho!`
 
+    const toastPosition =
+      window.innerWidth < 768 ? 'bottom-center' : 'top-right'
+
     if (coffeeIsInTheCart) {
       const newCart = cart.map((item: CartCoffee) => {
         if (item.title === title) {
@@ -58,12 +59,12 @@ export function CoffeeCard(props: CoffeeCardProps) {
 
       localStorage.setItem('cart', JSON.stringify(newCart))
       window.dispatchEvent(new Event('storage'))
-      toast(`+${addedCoffee}`)
-    } else {
-      localStorage.setItem('cart', JSON.stringify([...cart, newCoffee]))
-      window.dispatchEvent(new Event('storage'))
-      toast(addedCoffee)
+      return toast(`+${addedCoffee}`, { position: toastPosition })
     }
+
+    localStorage.setItem('cart', JSON.stringify([...cart, newCoffee]))
+    window.dispatchEvent(new Event('storage'))
+    toast(addedCoffee, { position: toastPosition })
   }
 
   const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
